@@ -14,20 +14,12 @@ gulp.task('default', ['clean'], cb =>
   )
 );
 
-// ship it!
-gulp.task('ship', ['default'], cb =>
+gulp.task('dev', ['clean'], cb =>
   runSequence(
-    'deploy',
-    'slack',
-    cb
-  )
-);
-
-// delete it!
-gulp.task('nuke', cb =>
-  runSequence(
-    'delete',
-    'slack',
+    'styles',
+    ['lint', 'scripts', 'images'],
+    'nunjucks',
+    'serve',
     cb
   )
 );

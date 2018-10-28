@@ -4,7 +4,8 @@ const journalize = require('journalize');
 const htmlmin = require('gulp-htmlmin');
 const config = require('../project.config');
 const data = require('gulp-data');
- 
+const browserSync = require('browser-sync').create();
+
 module.exports = () => {
   // helper function for nunjucks render
   function getDataForFile(file) {
@@ -47,6 +48,6 @@ module.exports = () => {
       removeStyleLinkTypeAttributes: true,
       removeOptionalTags: true
     }))
-    .pipe(gulp.dest('docs'));
-
+    .pipe(gulp.dest('docs'))
+    .pipe(browserSync.stream());
 };
