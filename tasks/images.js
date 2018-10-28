@@ -6,7 +6,8 @@ module.exports = () => {
   return gulp.src('./src/assets/img/**/*')
     .pipe(cache(imagemin({
       progressive: true,
-      interlaced: true
+      interlaced: true,
+      optimizationLevel: 2,
     })))
     .pipe(gulp.dest('./docs/assets/img'))
 };

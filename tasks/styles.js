@@ -24,9 +24,9 @@ module.exports = () => {
     'src/scss/*.scss'
   ])
     .pipe(newer('./docs/css'))
-    .pipe(sourcemaps.init())
     .pipe(sass())
-    .on('error', gutil.log)
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(cssnano())
     .pipe(sourcemaps.write())

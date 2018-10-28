@@ -1,13 +1,1 @@
-{
-  "page_title": "JSON Page title goes here.",
-  "page_description": "JSON Page description goes here.",
-  "authors": [
-    {
-      "name": "Person One", "link": "https://twitter.com/XXXXXXXXXXXXX"
-    },
-    {
-      "name": "Person Two", "link": "http://www.mystatesman.com/staff/XXXXXXXXXXX/"
-    }
-  ],
-  "publish_date": "Feb. 5, 2017"
-}
+{}

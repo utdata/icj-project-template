@@ -1,5 +1,5 @@
 {
-  "name": "statesman-immersive",
+  "name": "icj-project-template",
   "version": "1.0.0",
   "description": "A ",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Statesman Interactives <interactives@statesman.com>",
+  "author": "Christian McDonald <christian.mcdonald@utexas.edu>",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.24.0",
