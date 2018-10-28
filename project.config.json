@@ -1,0 +1,36 @@
+{
+  "url_endpoint": "20170331-single-page-project/",
+  "s3_bucket_production": "apps.statesman.com",
+  "s3_bucket_stage": "dev.apps.statesman.com",
+  "s3_root_url_production": "http://apps.statesman.com/",
+  "s3_root_url_stage": "https://s3-us-west-2.amazonaws.com/dev.apps.statesman.com/",
+  "page_title": "Page title goes here.",
+  "page_description": "Page description goes here.",
+  "twitter_thumbnail": "assets/img/twitter-thumbnail.jpg",
+  "facebook_thumbnail": "assets/img/facebook-thumbnail.jpg",
+  "shortcut_icon": "http://media.cmgdigital.com/shared/media/2015-08-28-16-58-55/web/site/www_mystatesman_com/images/favicon.ico",
+  "apple_touch_icon": "http://media.cmgdigital.com/shared/theme-assets/242014/www.statesman.com_fa2d2d6e73614535b997734c7e7d2287.png",
+  "authors": [
+    {
+      "name": "Person One", "link": "https://twitter.com/XXXXXXXXXXXXX"
+    },
+    {
+      "name": "Person Two", "link": "http://www.mystatesman.com/staff/XXXXXXXXXXX/"
+    }
+  ],
+  "metrics_projectSite": "statesman",
+  "metrics_projectChannel": "news",
+  "metrics_projectCategory": "",
+  "metrics_projectSubCategory": "",
+  "publish_date": "Feb. 5, 2017",
+  "related_stories": [
+    {
+      "url": "http://url.com/to/story1",
+      "headline": "Headline of Story 1"
+    },
+    {
+      "url": "http://url.com/to/story2",
+      "headline": "Headline of Story 2"
+    }
+  ]
+}

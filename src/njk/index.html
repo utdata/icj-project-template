@@ -1,0 +1,23 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<article class="container">
+  <div class="row">
+    <div class="col-lg-12 interative-header">
+    <h1 id="pagetitle">Title</h1>
+    <p class="author">By {% for author in authors %}
+      <a href="{{ author.link }}" target="_blank">{{ author.name }}</a>{% if not loop.last %}{% if loop.revindex0 == 1 %} and {% else %}, {% endif %}{% endif %} {% endfor %}
+      <br> Published {{ publish_date }}
+    </p>
+    <p>
+      Lucas ipsum dolor sit amet boba calrissian amidala sith dooku solo moff organa obi-wan windu. Gamorrean binks wedge darth. Mon darth mon kit ponda solo. Moff watto ackbar mothma moff anakin. Lando skywalker lars fett calrissian lars organa. Organa kenobi wedge darth jawa skywalker anakin. Twi'lek kit darth calamari lando kamino droid. Darth jawa fett grievous maul. Palpatine obi-wan leia tusken raider dagobah. Twi'lek qui-gon boba antilles yoda thrawn. Wampa luuke wampa skywalker. Moff ponda ackbar dagobah kit lobot jinn solo.
+    </p>
+    {% if related_stories %}
+    <p class="bold">
+      Read more: {% for story in related_stories %}<a href='{{ story.url }}' target='_blank'>{{ story.headline}}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    </p>
+    {% endif %}
+    </div>
+  </div>
+</article>
+{% endblock %}
