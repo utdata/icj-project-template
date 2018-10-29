@@ -3,10 +3,10 @@
 {% block page_title %}New index page title{% endblock %}
 
 {% block content %}
-<article class="container">
+  <article class="container">
   <div class="row">
     <div class="col-lg-12 interative-header">
-    <h1 id="pagetitle">New title</h1>
+    <h1 id="pagetitle">New title crit</h1>
     <p class="author">By {% for author in authors %}
       <a href="{{ author.link }}" target="_blank">{{ author.name }}</a>{% if not loop.last %}{% if loop.revindex0 == 1 %} and {% else %}, {% endif %}{% endif %} {% endfor %}
       <br> Published {{ publish_date }}
@@ -16,5 +16,5 @@
     </p>
     </div>
   </div>
-</article>
+  </article>
 {% endblock %}
