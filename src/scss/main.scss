@@ -1,8 +1,5 @@
 // Custom variable overrides
 
-/* article */
-@import "article";
-
 /* bootstrap */
 // Option A: Include all of Bootstrap
 @import "../../node_modules/bootstrap/scss/bootstrap";
@@ -14,4 +11,7 @@
 // @import "../../node_modules/bootstrap/scss/functions";
 // @import "../../node_modules/bootstrap/scss/variables";
 // @import "../../node_modules/bootstrap/scss/mixins";
+
+// Import partials
+@import "article";
 

@@ -51,8 +51,6 @@ Running `gulp dev` runs the default tasks above plus `serve` for the BrowserSync
 
 Layouts, partials and files live in `./src/njk/`.
 
-
-
 You can add [custom filters](https://mozilla.github.io/nunjucks/api.html#custom-filters) and [global variables](https://mozilla.github.io/nunjucks/api.html#addglobal) in the `manageEnv` function inside `./tasks/nunjucks.js`.
 
 ### Deployment

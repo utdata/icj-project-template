@@ -9,10 +9,10 @@ module.exports = () => {
     port: 3000
   });
   gulp.watch(['src/njk/**/*.html'], ['nunjucks', reload]);
-  gulp.watch([
-    'node_modules/bootstrap/scss/bootstrap.scss',
-    'src/scss/**/*.scss'],
-    ['styles', reload]);
+  gulp.watch(
+    ['node_modules/bootstrap/scss/bootstrap.scss','src/scss/**/*.scss'],
+    ['styles', reload]
+  );
   gulp.watch(['src/js/**/*.js'], ['lint', 'scripts', reload]);
   gulp.watch(['src/assets/img/**/*'], ['images', reload]);
 };
