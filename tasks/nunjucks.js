@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const nunjucksRender = require('gulp-nunjucks-render');
 const journalize = require('journalize');
-const htmlmin = require('gulp-htmlmin');
 const data = require('gulp-data');
 const browserSync = require('browser-sync').create();
 // const config = require('../project.config');
@@ -39,17 +38,6 @@ module.exports = () => {
     .pipe(nunjucksRender({
       path: 'src/njk',
       manageEnv: manageEnv
-    }))
-    .pipe(htmlmin({
-      removeComments: true,
-      collapseWhitespace: true,
-      collapseBooleanAttributes: true,
-      removeAttributeQuotes: true,
-      removeRedundantAttributes: true,
-      removeEmptyAttributes: true,
-      removeScriptTypeAttributes: true,
-      removeStyleLinkTypeAttributes: true,
-      removeOptionalTags: true
     }))
     .pipe(gulp.dest('docs'))
     .pipe(browserSync.stream());
