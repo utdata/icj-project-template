@@ -5,11 +5,11 @@ A Bootstrap4-based project scaffold with a gulp workflow that is set up for Gith
 Features:
 
 * [Bootstrap 4.1](https://getbootstrap.com/).
-* [Sass](https://sass-lang.com/). (Possibly with autoprefixing?).
+* [Sass](https://sass-lang.com/) with [autoprefixer](https://github.com/postcss/autoprefixer)).
 * ES6 support from Babel.
 * Nunjucks templates with [`journalize`](https://www.npmjs.com/package/journalize) filters.
-* Browsersync server. (Refresh is not working).
-* Image compression. (not sure if this is working).
+* Browsersync server.
+* Image compression. (Not sure if this is working).
 * Publishing to `./docs/` for [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
 
 ## Setup

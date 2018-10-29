@@ -2,9 +2,13 @@
   "name": "icj-project-template",
   "version": "1.0.0",
   "description": "A ",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/utdata/icj-project-template.git"
   },
   "keywords": [],
   "author": "Christian McDonald <christian.mcdonald@utexas.edu>",
