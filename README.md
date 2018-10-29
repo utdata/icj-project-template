@@ -4,12 +4,12 @@ A Bootstrap4-based project scaffold with a gulp workflow that is set up for Gith
 
 Features:
 
-* [Bootstrap 4.1](https://getbootstrap.com/) for design
-* [Sass](https://sass-lang.com/) (possibly with autoprefixing?)
-* ES6 support from Babel
-* Nunjucks templating with [`journalize`](https://www.npmjs.com/package/journalize) filters
-* Browsersync server (though refresh is not working.)
-* Image compression
+* [Bootstrap 4.1](https://getbootstrap.com/).
+* [Sass](https://sass-lang.com/). (Possibly with autoprefixing?).
+* ES6 support from Babel.
+* Nunjucks templates with [`journalize`](https://www.npmjs.com/package/journalize) filters.
+* Browsersync server. (Refresh is not working).
+* Image compression. (not sure if this is working).
 * Publishing to `./docs/` for [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
 
 ## Setup
@@ -29,23 +29,21 @@ $ gulp
 
 ### The Gulp tasks
 
-Files from `./src` get processed into the `./docs` directory. They _ARE_ saved in git, since we are using Github Pages for default publishing.
+Configured in `gulpfile.babel.js`. Gulp tasks live in `./tasks`.
 
-Gulp tasks live in `./tasks`:
+* Default task -- just `gulp` -- runs `styles`, `lint`, `scripts`, `images` and `nunjucks`.
+* Running `gulp dev` runs the default tasks above plus `serve` for the BrowserSync server.
+* To run any specific gulp task: `gulp <name of task>`, e.g. `gulp clean`.
 
-* `clean.js`: Clear out the `./public` directory using [`del`](https://www.npmjs.com/package/del)
-* `images.js`: Optimize images using [`gulp-imagemin`](https://www.npmjs.com/package/gulp-imagemin)
-* `lint.js`: Lint your (optionally ES6) javascript in `/src/js/` using [`gulp-eslint`](https://www.npmjs.com/package/gulp-eslint) -- it's a good idea to have an eslint package installed in your text editor of choice, as well
-* `nunjucks.js`: Build out templates using [`gulp-nunjucks-render`](https://github.com/carlosl/gulp-nunjucks-render) (see notes below)
-* `scripts.js`: Babel/concat/uglify javascript in `/src/js/` using [`gulp-babel`](https://www.npmjs.com/package/gulp-babel), [`gulp-concat`](https://www.npmjs.com/package/gulp-concat) and [`gulp-uglify`](https://www.npmjs.com/package/gulp-uglify)
+### Tasks
+
+* `clean.js`: Clear out the `./docs` directory using [`del`](https://www.npmjs.com/package/del).
+* `images.js`: Optimize images using [`gulp-imagemin`](https://www.npmjs.com/package/gulp-imagemin).
+* `lint.js`: Lint your (optionally ES6) javascript in `/src/js/` using [`gulp-eslint`](https://www.npmjs.com/package/gulp-eslint) -- it's a good idea to have an eslint package installed in your text editor of choice, as well.
+* `nunjucks.js`: Build out templates using [`gulp-nunjucks-render`](https://github.com/carlosl/gulp-nunjucks-render) (see notes below).
+* `scripts.js`: Babel/concat/uglify javascript in `/src/js/` using [`gulp-babel`](https://www.npmjs.com/package/gulp-babel), [`gulp-concat`](https://www.npmjs.com/package/gulp-concat) and [`gulp-uglify`](https://www.npmjs.com/package/gulp-uglify).
 * `serve.js`: Spin up a [BrowserSync](https://browsersync.io/docs/gulp) server at `localhost:3000`. Bundled with watch tasks for css/js/template changes.
-* `styles.js`: Process LESS files from `/src/less/` into minified css using [`gulp-less`](https://www.npmjs.com/package/gulp-less), [`gulp-autoprefixer`](https://www.npmjs.com/package/gulp-autoprefixer) and [`gulp-cssnano`](https://www.npmjs.com/package/gulp-autoprefixer).
-
-To run a gulp task: `gulp <name of task>`, e.g. `gulp clean`.
-
-Running the default task -- just `gulp` -- runs `styles`, `lint`, `scripts`, `images` and `nunjucks`.
-
-Running `gulp dev` runs the default tasks above plus `serve` for the BrowserSync server.
+* `styles.js`: Process Sass files from `/src/scss/` into minified css using [`gulp-sass`](https://www.npmjs.com/package/gulp-sass), [`gulp-sourcemaps`](https://www.npmjs.com/package/gulp-sourcemaps), [`gulp-autoprefixer`](https://www.npmjs.com/package/gulp-autoprefixer) and [`gulp-cssnano`](https://www.npmjs.com/package/gulp-cssnano).
 
 ### Nunjucks templates
 
@@ -55,7 +53,9 @@ You can add [custom filters](https://mozilla.github.io/nunjucks/api.html#custom-
 
 ### Deployment
 
-Files are bundled into the `docs/` folder. See [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment.
+Files are bundled into the `docs/` folder and the _ARE_ committed to Github because [Github Pages](https://help.github.com/categories/github-pages-basics/) is used for free hosting of pages.
+
+* Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) tospecific directions on deployment.
 
 #### Inspiration
 
