@@ -1,6 +1,6 @@
 # ICJ Project Template
 
-Bootstrap 4 project with a Gulp workflow set up for Github Pages publishing.
+A Node-based template system with a Gulp workflow set up for Github Pages publishing.
 
 Features:
 
@@ -67,7 +67,7 @@ All **pages** are kept in the root of the `njk` folder. Each HTML file created h
 
 Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/templating.html#tags), like looping through data within templates. There should be an example of this in the `index.html` page.
 
-To make data available to the templates, it must be saved as a key value pair or as an array in the `project.config.json` file. (There are examples there and one below.) If you add data to the config file, you must re-run the `gulp dev` command to make it available to Nunjucks.
+To make data available to the templates, it must be saved as a key-value pair or as an array in the `project.config.json` file. (There are examples there and one below.) If you add data to the config file, you must re-run the `gulp dev` command to make it available to Nunjucks.
 
 Have a spreadsheet of data that you need to convert to JSON to add to `project.config.json`? Try [csvjson.com](https://www.csvjson.com/csv2json).
 
@@ -86,7 +86,7 @@ Have a spreadsheet of data that you need to convert to JSON to add to `project.c
 }
 ```
 
-#### Sass/scss
+### Sass/scss
 
 The `./src/njk/scss/` folder holds all the SCSS files. It is configured for Bootstrap and gets compiled into the `./docs` folder for publication.
 
