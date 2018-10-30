@@ -8,6 +8,7 @@ require('gulp-load-tasks')();
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
+    'copy',
     ['lint', 'scripts', 'images'],
     'nunjucks',
     cb

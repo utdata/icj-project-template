@@ -1,3 +1,6 @@
+// 'node_modules/jquery/dist/jquery.js',
+// 'node_modules/popper.js/dist/popper.js',
+// 'node_modules/bootstrap/dist/js/bootstrap.js'
 const gulp = require('gulp');
 const newer = require('gulp-newer');
 const sourcemaps = require('gulp-sourcemaps');
