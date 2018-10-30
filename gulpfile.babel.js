@@ -14,11 +14,9 @@ gulp.task('default', ['clean'], cb =>
   )
 );
 
-gulp.task('dev', ['clean'], cb =>
+gulp.task('dev', cb =>
   runSequence(
-    'styles',
-    ['lint', 'scripts', 'images'],
-    'nunjucks',
+    'default',
     'serve',
     cb
   )
