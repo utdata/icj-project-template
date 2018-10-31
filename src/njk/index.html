@@ -20,7 +20,7 @@
         </p>
           <ul> 
         {% for book in books %}
-          <li>{{ book.title }}, {{ disc.author }}</li>
+          <li>{{ book.title }}, {{ book.author }}</li>
         {% else %}
           <li>This would display if the 'item' collection were empty</li>
         {% endfor %}
