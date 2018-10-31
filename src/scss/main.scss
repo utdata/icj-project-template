@@ -1,5 +1,12 @@
 // Custom variable overrides
 
+// $body-bg: rgb(0, 0, 0);
+// $body-color: #111;
+
+$link-color: theme-color("secondary");
+$link-hover-color: red;
+
+
 /* bootstrap */
 // Option A: Include all of Bootstrap
 @import "../../node_modules/bootstrap/scss/bootstrap";
@@ -14,4 +21,5 @@
 
 // Import partials
 @import "article";
+@import "nav";
 

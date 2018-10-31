@@ -9,8 +9,17 @@
   ],
   "publish_date": "Feb. 5, 2017",
   "books": [
-    {"title": "The Clown", "author": "Heinrich Böll"},
-    {"title": "The Shipping News", "author": "Annie Proulx"},
-    {"title": "The Hearing Trumpet", "author": "Leonora Carrington"}
+    {
+      "title": "The Clown",
+      "author": "Heinrich Böll"
+    },
+    {
+      "title": "The Shipping News",
+      "author": "Annie Proulx"
+    },
+    {
+      "title": "The Hearing Trumpet",
+      "author": "Leonora Carrington"
+    }
   ]
 }
