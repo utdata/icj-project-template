@@ -60,7 +60,7 @@ With these tools, you can build a site framework once as a Layout, and then _ext
 
 **Layouts** and **partials** are parts of files used and extended elsewhere.
 
-* The layout `./src/njk/_layouts/base.html` is a base template for a site. The idea is to build the framework of the site only once, even though you have many pages.
+* The layout `./src/njk/_layouts/base.html` is an example base template for a site. The idea is to build the framework of the site only once, even though you have many pages.
 * The layout `./src/njk/_layouts/detail.html` is an example of a layout that _extends_ the base layout, but then allows the user to insert different content through the _content_ block.
 * Anything in `./src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_.
 
