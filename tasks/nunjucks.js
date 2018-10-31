@@ -3,6 +3,7 @@ const nunjucksRender = require('gulp-nunjucks-render');
 const journalize = require('journalize');
 const browserSync = require('browser-sync').create();
 const config = require('../project.config');
+const project_data = require('../src/njk/_data/data.json');
 
 module.exports = () => {
   // nunjucks environment setup
@@ -28,7 +29,8 @@ module.exports = () => {
     // .pipe(data(getDataForFile))
     .pipe(nunjucksRender({
       path: 'src/njk',
-      manageEnv: manageEnv
+      manageEnv: manageEnv,
+      data: project_data
     }))
     .pipe(gulp.dest('docs'))
     .pipe(browserSync.stream());

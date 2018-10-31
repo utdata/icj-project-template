@@ -32,6 +32,8 @@ src
 |   |-- img (Images go in here)
 |-- js
 |-- njk
+|   |-- _data
+|      |-- data.json (Any data to be parsed by Nunjucks)
 |   |-- _layouts (Templates to be used by your pages)
 |   |-- _partials (Reusable code for Templates)
 |   |-- index.html (Pages that become your site)
@@ -46,7 +48,13 @@ This project is configured to use Bootstrap 4 HTML/Sass as its core.
 
 [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into templates for the main structure of your site so you don't have to repeat that code for each page on your site.
 
-Templates work off two basic concepts: inheritance using _extend_, and _blocks_ which serve as variables or replaceable code. You can _extend_ or "use" a layout and all it's code, but swap out predefined _blocks_ specific to your new page.
+Templates work off several basic concepts:
+
+* Template inheritance using _extends_.
+* _blocks_ which serve as variables or replaceable code.
+* _include_ which pulls in code from other files.
+
+With these tools, you can build a site framework once as a Layout, and then _extend_ or "use" that layout and all it's code, but swap out predefined _blocks_ specific to your new page.
 
 #### Layouts
 
@@ -67,9 +75,13 @@ All **pages** are kept in the root of the `njk` folder. Each HTML file created h
 
 Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/templating.html#tags), like looping through data within templates. There should be an example of this in the `index.html` page.
 
-To make data available to the templates, it must be saved as a key-value pair or as an array in the `project.config.json` file. (There are examples there and one below.) If you add data to the config file, you must re-run the `gulp dev` command to make it available to Nunjucks.
+Most data should be saved as key-value pairs or as an array in the `./src/njk/_data/data.json`. (There are examples in that file as well as below.)
 
-Have a spreadsheet of data that you need to convert to JSON to add to `project.config.json`? Try [csvjson.com](https://www.csvjson.com/csv2json).
+You can also set global variables in `project.config.json` as key-value pairs or arrays.
+
+> IMPORTANT: If you add/change/delete data in either file, you must re-run the `gulp dev` command to make it available to Nunjucks.
+
+Have a spreadsheet of data that you need to convert to JSON? Try [csvjson.com](https://www.csvjson.com/csv2json).
 
 ```json
   "publish_date": "Feb. 5, 2017",
