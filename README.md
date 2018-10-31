@@ -18,22 +18,22 @@ Make sure you have gulp installed globally: `npm install -g gulp-cli`.
 Download this directory, then `cd` into the project directory.
 
 ```sh
-$ npm install
-$ gulp dev
+npm install
+gulp dev
 ```
 
 ## Using this project
 
 Most of the files you edit for this project are in the `./src` directory. The Gulp production process will generate the publishable files into the `./docs` folder, which you shouldn't have to touch.
 
-```
+```pre
 src
 |-- assets
 |   |-- img (Images go in here)
 |-- js
 |-- njk
 |   |-- _layouts (Templates to be used by your pages)
-|   |-- _partials (Snippets of reusable code for Templates)
+|   |-- _partials (Reusable code for Templates)
 |   |-- index.html (Pages that become your site)
 |-- scss
 |   |-- main.scss (Sass files and partials)

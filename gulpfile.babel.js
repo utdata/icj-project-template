@@ -5,8 +5,9 @@ import runSequence from 'run-sequence';
 require('gulp-load-tasks')();
 
 // default tasks
-gulp.task('default', ['clean'], cb =>
+gulp.task('default', cb =>
   runSequence(
+    'clean',
     'styles',
     'copy',
     ['lint', 'scripts', 'images'],
