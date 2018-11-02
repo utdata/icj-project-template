@@ -13,7 +13,7 @@ Features:
 
 ## Setup
 
-Make sure you have gulp installed globally: `npm install -g gulp-cli`.
+If you are in my ICJ class, this is already done, but others will need to make sure you have gulp installed globally: `npm install -g gulp-cli`.
 
 Download this directory, then `cd` into the project directory.
 
