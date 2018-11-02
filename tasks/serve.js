@@ -8,7 +8,7 @@ module.exports = () => {
     server: 'docs',
     port: 3000
   });
-  gulp.watch(['src/njk/**/*.html','src/njk/**/*.json'], ['nunjucks', reload]);
+  gulp.watch(['src/njk/**/*.html','src/njk/**/*.njk','src/njk/**/*.json'], ['nunjucks', reload]);
   gulp.watch(
     ['node_modules/bootstrap/scss/bootstrap.scss','src/scss/**/*.scss'],
     ['styles', reload]
