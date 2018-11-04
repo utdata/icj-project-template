@@ -6,7 +6,6 @@
 $link-color: theme-color("secondary");
 $link-hover-color: red;
 
-
 /* bootstrap */
 // Option A: Include all of Bootstrap
 @import "../../node_modules/bootstrap/scss/bootstrap";
@@ -17,9 +16,8 @@ $link-hover-color: red;
 // Required
 // @import "../../node_modules/bootstrap/scss/functions";
 // @import "../../node_modules/bootstrap/scss/variables";
-// @import "../../node_modules/bootstrap/scss/mixins";
+// @import "../../node_modules/bootstrap/scss/mixins"; 
 
 // Import partials
 @import "article";
 @import "nav";
-
