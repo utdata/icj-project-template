@@ -64,12 +64,16 @@ With these tools, you can build a site framework once as a Layout, and then _ext
 - The layout `src/njk/_layouts/detail.njk` is an example of a layout that _extends_ the base layout, but then allows the user to insert different content through the _content_ block.
 - Anything in `src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_.
 
+The Nunjucks community has adopted `.njk` as the file extension for templates. These files are only used for processing, and do NOT become actual webpages on your site.
+
 #### Pages
 
 All **pages** are kept in the root of the `njk` folder. Each HTML file created here becomes a page on your website.
 
 - The page `src/njk/index.html` is the main website page that _extends_ base.njk. You are coding only the main content of the page, and inheriting all the nav and other framework.
 - The page `src/njk/detail-page.html` _extends_ the "detail.html" layout, which is already extending "base.html". It allows you to have a different structure than the index file, yet still reuse it for many other pages.
+
+We are using the `.html` file extension here because these WILL become actual pages on your website.
 
 #### Using data in Nunjucks templates
 
