@@ -42,7 +42,7 @@ src
 |   |-- _partials.scss
 ```
 
-### Nunjucks templates
+## Nunjucks templates
 
 This project is configured to use Bootstrap 4 HTML/Sass as its core.
 
@@ -56,7 +56,7 @@ Templates work off several basic concepts:
 
 With these tools, you can build a site framework once as a Layout, and then _extend_ or "use" that layout and all it's code, but swap out predefined _blocks_ specific to your new page.
 
-#### Layouts
+### Layouts
 
 **Layouts** and **partials** are parts of files used and extended elsewhere.
 
@@ -66,7 +66,7 @@ With these tools, you can build a site framework once as a Layout, and then _ext
 
 The Nunjucks community has adopted `.njk` as the file extension for templates. These files are only used for processing, and do NOT become actual webpages on your site.
 
-#### Pages
+### Pages
 
 All **pages** are kept in the root of the `njk` folder. Each HTML file created here becomes a page on your website.
 
@@ -75,17 +75,11 @@ All **pages** are kept in the root of the `njk` folder. Each HTML file created h
 
 We are using the `.html` file extension here because these WILL become actual pages on your website.
 
-#### Using data in Nunjucks templates
+### Using data in Nunjucks templates
 
 Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/templating.html#tags), like looping through data within templates. There should be an example of this in the `index.html` page.
 
-Most data should be saved as key-value pairs or as an array in the `src/njk/_data/data.json`. (There are examples in that file as well as below.)
-
-You can also set global variables in `project.config.json` as key-value pairs or arrays.
-
-> IMPORTANT: If you add/change/delete data in either file, you must re-run the `gulp dev` command to make it available to Nunjucks.
-
-Have a spreadsheet of data that you need to convert to JSON? Try [csvjson.com](https://www.csvjson.com/csv2json).
+Most data should be saved as key-value pairs or as an array in the `src/njk/_data/data.json`. An example might be this:
 
 ```json
   "publish_date": "Feb. 5, 2017",
@@ -102,6 +96,26 @@ Have a spreadsheet of data that you need to convert to JSON? Try [csvjson.com](h
 }
 ```
 
+You can also set global variables in `project.config.json` as key-value pairs or arrays.
+
+> IMPORTANT: If you add/change/delete data in either file, you must re-run the `gulp dev` command to make it available to Nunjucks.
+
+Have a spreadsheet of data that you need to convert to JSON? Try [csvjson.com](https://www.csvjson.com/csv2json).
+
+### Filtering data for detail pages
+
+It is possible to select a single node or "row" from an array in `data.json` by it's position to use in a detail page using the Nunjucks [set](https://mozilla.github.io/nunjucks/templating.html#set) tag. The position order starts at zero, so using the data example above, you could access "The Shipping News" author (and similar properties) like this:
+
+```html
+{% set books = books[1] %}
+
+{{ books.author }}
+```
+
+Would return "Annie Proulx".
+
+Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array.
+
 ### Sass/scss
 
 The `src/scss/` folder holds all the SCSS files. It is configured for Bootstrap and gets compiled into the `docs` folder for publication.
@@ -114,7 +128,7 @@ This project is designed to bundle the finished website into the `docs` folder, 
 
 By default, the `docs/` folder is committed to Github because we are using [Github Pages](https://help.github.com/categories/github-pages-basics/) for free hosting of our site.
 
-Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment there.
+Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment.
 
 ## Technical bits on how this project is structured
 
@@ -122,7 +136,7 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 
 Gulp is task runner and is configured in `gulpfile.babel.js`. Individual tasks live in `tasks`.
 
-- Default task -- just `gulp` -- runs `styles`, `lint`, `scripts`, `images` and `nunjucks` to create the production files.
+- The default task `gulp` runs the `styles`, `lint`, `scripts`, `images` and `nunjucks` tasks to create the production files.
 - Running `gulp dev` runs the default tasks above plus `serve` for the BrowserSync server.
 - To run any specific gulp task: `gulp <name of task>`, e.g. `gulp clean`.
 
@@ -147,7 +161,10 @@ A collection of functions useful for making prose reader friendly is already inc
 There are known issues with this template:
 
 - There are warnings about outdated npm packages. The fix requires an upgrade of `babel-core`, which is a breaking fix.
+- I'm not certain that the `imagemin` task is actually ruducing images.
 
 ### Future development
 
-- Might add a Nunjucks Markdown package of some sort to allow adding/editing of basic text in Markdown, and maybe perhaps front-matter.
+- I'd like to add a Nunjucks Markdown package of some sort to allow adding/editing of basic text in Markdown, perhaps with front-matter.
+- I'd like to loop through data to create detail pages.
+- I'd like to store everything in Google Docs and Sheets.
