@@ -56,7 +56,7 @@ module.exports = () => {
     }
   }
 
-  gulp.src('src/njk/*.*')
+  gulp.src(['src/njk/*.html', 'src/njk/*.njk'])
     // .pipe(data(getDataForFile))
     .pipe(nunjucksRender({
       path: 'src/njk',
