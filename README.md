@@ -82,7 +82,6 @@ Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/te
 Most data should be saved as key-value pairs or as an array in the `src/njk/_data/data.json`. An example might be this:
 
 ```json
-  "publish_date": "Feb. 5, 2017",
   "books": [
     {
       "title": "The Clown",
@@ -96,9 +95,11 @@ Most data should be saved as key-value pairs or as an array in the `src/njk/_dat
 }
 ```
 
-You can also set global variables in `project.config.json` as key-value pairs or arrays.
+* You can access this data in a loop as `data.books.title`. There is an example in the index.
+* You can add new `*.json` files into `src/njk/_data` and they will be added to the Nunjucks context as `filename.arrayname.property`.
+* You can also set global variables in `project.config.json` as key-value pairs or arrays.
 
-> IMPORTANT: If you add/change/delete data in either file, you must re-run the `gulp dev` command to make it available to Nunjucks.
+> IMPORTANT: If you add/change/delete data in JSON files, you must re-run the `gulp dev` command to make it available to Nunjucks.
 
 Have a spreadsheet of data that you need to convert to JSON? Try [csvjson.com](https://www.csvjson.com/csv2json).
 
@@ -107,14 +108,11 @@ Have a spreadsheet of data that you need to convert to JSON? Try [csvjson.com](h
 It is possible to select a single node or "row" from an array in `data.json` by it's position to use in a detail page using the Nunjucks [set](https://mozilla.github.io/nunjucks/templating.html#set) tag. The position order starts at zero, so using the data example above, you could access "The Shipping News" author (and similar properties) like this:
 
 ```html
-{% set books = books[1] %}
-
-{{ books.author }}
+{% set book = data.books[1] %}
+<h1>{{ book.title }}</h1> # gets "The Shipping News" in data above
 ```
 
-Would return "Annie Proulx".
-
-Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array.
+Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `detail-page.html`.
 
 ### Sass/scss
 
@@ -161,10 +159,10 @@ A collection of functions useful for making prose reader friendly is already inc
 There are known issues with this template:
 
 - There are warnings about outdated npm packages. The fix requires an upgrade of `babel-core`, which is a breaking fix.
-- I'm not certain that the `imagemin` task is actually ruducing images.
+- I'm not certain that the `imagemin` task is actually reducing images.
 
 ### Future development
 
 - I'd like to add a Nunjucks Markdown package of some sort to allow adding/editing of basic text in Markdown, perhaps with front-matter.
 - I'd like to loop through data to create detail pages.
-- I'd like to store everything in Google Docs and Sheets.
+- I'd like to store everything in Google Docs and Sheets. Perhaps using Markdown in the Google docs.
