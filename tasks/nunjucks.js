@@ -4,9 +4,10 @@ const journalize = require('journalize');
 const browserSync = require('browser-sync').create();
 const config = require('../project.config');
 const gutil = require('gulp-util');
-const project_data = require('../src/njk/_data/data.json');
+const fs = require('fs');
 
 module.exports = () => {
+
   // nunjucks environment setup
   const manageEnv = function(env) {
     // loop over config vars to add to nunjucks global env
@@ -17,6 +18,35 @@ module.exports = () => {
       }
     }
 
+  let data_dir = 'src/njk/_data/';
+
+  // loop over the directory of files
+  fs.readdir(data_dir, function(err, files) {
+
+    // handle errors
+    if(err) {
+      console.error("Could not list the directory.", err );
+      process.exit(1);
+    } 
+
+    // for each file
+    files.forEach(function(file, index) {
+
+      // if it's a .json file
+      if (file.endsWith('json')) {
+
+        // make the key the file name
+        let key = file.split('.json')[0];
+
+        // and the value the file contents
+        let value = require('../' + data_dir + key);
+
+        // and add to our global environment
+        env.addGlobal(key, value);
+      }
+    })
+  })
+
     // set up journalize
     for (let key in journalize) {
       let func = journalize[key];
@@ -26,12 +56,11 @@ module.exports = () => {
     }
   }
 
-  gulp.src('src/njk/*.html')
+  gulp.src(['src/njk/*.html', 'src/njk/*.njk'])
     // .pipe(data(getDataForFile))
     .pipe(nunjucksRender({
       path: 'src/njk',
       manageEnv: manageEnv,
-      data: project_data
     }))
     .on('error', gutil.log)
     .pipe(gulp.dest('docs'))

@@ -1,7 +1,8 @@
 {% extends '_layouts/detail.njk' %}
+{% set book = data.books[1] %}
 
 {% block info %}
-  <p>Left column content</p>
+  {{ book.title }}
 {% endblock %}
 
 {% block story %}
