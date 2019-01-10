@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-import browserSync from 'browser-sync';
+const browserSync = require('browser-sync');
 const reload = browserSync.reload;
  
 module.exports = () => {
@@ -8,11 +8,11 @@ module.exports = () => {
     server: 'docs',
     port: 3000
   });
-  gulp.watch(['src/njk/**/*.html','src/njk/**/*.njk','src/njk/**/*.json'], ['nunjucks', reload]);
+  gulp.watch(['src/njk/**/*.html','src/njk/**/*.njk','src/njk/**/*.json'], gulp.series('nunjucks', reload));
   gulp.watch(
     ['node_modules/bootstrap/scss/bootstrap.scss','src/scss/**/*.scss'],
-    ['styles', reload]
-  );
-  gulp.watch(['src/js/**/*.js'], ['lint', 'scripts', reload]);
-  gulp.watch(['src/assets/img/**/*'], ['images', reload]);
+    gulp.series('styles', reload)
+    );
+  gulp.watch(['src/js/**/*.js'], gulp.series('lint', 'scripts', reload));
+  gulp.watch(['src/assets/img/**/*'], gulp.series('images', reload));
 };

@@ -6,7 +6,7 @@ const config = require('../project.config');
 const gutil = require('gulp-util');
 const fs = require('fs');
 
-module.exports = () => {
+module.exports = (resolve, reject) => {
 
   // nunjucks environment setup
   const manageEnv = function(env) {
@@ -65,4 +65,5 @@ module.exports = () => {
     .on('error', gutil.log)
     .pipe(gulp.dest('docs'))
     .pipe(browserSync.stream());
+    resolve();
 };
