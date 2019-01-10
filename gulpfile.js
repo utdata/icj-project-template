@@ -16,6 +16,10 @@ gulp.task(
       'images'
     ),
     'nunjucks',
-    'serve'
   )
+);
+
+gulp.task(
+  'dev',
+  gulp.series('default', 'serve')
 );
