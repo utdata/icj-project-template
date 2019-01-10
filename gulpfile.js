@@ -23,3 +23,7 @@ gulp.task(
   'dev',
   gulp.series('default', 'serve')
 );
+
+gulp.task(
+  'clear'
+);
