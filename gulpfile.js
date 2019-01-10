@@ -15,7 +15,7 @@ gulp.task(
       'scripts',
       'images'
     ),
-    'nunjucks',
+    'nunjucks'
   )
 );
 
