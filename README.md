@@ -8,21 +8,19 @@ Features:
 - [Sass](https://sass-lang.com/) with [autoprefixer](https://github.com/postcss/autoprefixer).
 - Nunjucks templates with [`journalize`](https://www.npmjs.com/package/journalize) filters. Data and be made available to templates through the `project.config.json` file.
 - Browsersync server.
-- Image compression. (Not sure if this is working).
+- Image compression.
 - Publishing to `docs/` for [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
 
 ## Setup
 
 If you are in my ICJ class, this is already done, but others will need to make sure you have gulp installed globally: `npm install -g gulp-cli`.
 
-Download this directory, then `cd` into the project directory.
+- Create your project folder, called `yourname-final`.
+- Open VS Code into that folder and open the Terminal.
+- Run `degit utdata/icj-project-template`.
+- Create your Github repo and connect them.
 
-```sh
-npm install
-gulp dev
-```
-
-## Using this project
+## Understanding this project
 
 Most of the files you edit for this project are in the `src` directory. The Gulp production process will generate the publishable files into the `docs` folder, which you shouldn't have to touch.
 
@@ -95,9 +93,9 @@ Most data should be saved as key-value pairs or as an array in the `src/njk/_dat
 }
 ```
 
-* You can access this data in a loop as `data.books.title`. There is an example in the `index.njk` file.
-* You can add new `*.json` files into `src/njk/_data/` and they will be added to the Nunjucks context as `filename.arrayname.property`.
-* You can also set global variables in `project.config.json` as key-value pairs or arrays.
+- You can access this data in a loop as `data.books.title`. There is an example in the `index.njk` file.
+- You can add new `*.json` files into `src/njk/_data/` and they will be added to the Nunjucks context as `filename.arrayname.property`.
+- You can also set global variables in `project.config.json` as key-value pairs or arrays.
 
 > IMPORTANT: If you add/change/delete data in JSON files, you must re-run the `gulp dev` command to make it available to Nunjucks.
 
@@ -132,7 +130,7 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 
 ### Gulp
 
-Gulp is task runner and is configured in `gulpfile.babel.js`. Individual tasks live in `tasks`.
+Gulp is task runner and is configured in `gulpfile.js`. Individual tasks live in `tasks`.
 
 - The default task `gulp` runs the `styles`, `lint`, `scripts`, `images` and `nunjucks` tasks to create the production files.
 - Running `gulp dev` runs the default tasks above plus `serve` for the BrowserSync server.
@@ -140,26 +138,20 @@ Gulp is task runner and is configured in `gulpfile.babel.js`. Individual tasks l
 
 #### Tasks
 
-- `clean.js`: Clear out the `docs` directory using [`del`](https://www.npmjs.com/package/del).
-- `images.js`: Optimize images using [`gulp-imagemin`](https://www.npmjs.com/package/gulp-imagemin).
-- `lint.js`: Lint your (optionally ES6) javascript in `/src/js/` using [`gulp-eslint`](https://www.npmjs.com/package/gulp-eslint) -- it's a good idea to have an eslint package installed in your text editor of choice, as well.
-- `nunjucks.js`: Build out templates using [`gulp-nunjucks-render`](https://github.com/carlosl/gulp-nunjucks-render) (see notes below).
+- `clean.js`: Deletes the contents of the `docs` directory using [`del`](https://www.npmjs.com/package/del).
+- `clear.js`: Clears out the gulp cache. Useful to reprocess images of the same name stuck in cache. Run `gulp clear` then re-run `gulp`.
+- `images.js`: Optimize images using [`gulp-imagemin`](https://www.npmjs.com/package/gulp-imagemin) and [`imagemin-mozjpeg`](https://www.npmjs.com/package/imagemin-mozjpeg) packages.
+- `lint.js`: Checks syntax of your (optionally ES6) javascript in `/src/js/` using [`gulp-eslint`](https://www.npmjs.com/package/gulp-eslint) -- it's a good idea to have an eslint package installed in your text editor of choice, as well.
+- `nunjucks.js`: Builds out html pages using [`gulp-nunjucks-render`].(https://github.com/carlosl/gulp-nunjucks-render) (see notes below).
 - `scripts.js`: Babel/concat/uglify javascript in `/src/js/` using [`gulp-babel`](https://www.npmjs.com/package/gulp-babel), [`gulp-concat`](https://www.npmjs.com/package/gulp-concat) and [`gulp-uglify`](https://www.npmjs.com/package/gulp-uglify).
-- `serve.js`: Spin up a [BrowserSync](https://browsersync.io/docs/gulp) server at `localhost:3000`. Bundled with watch tasks for css/js/template changes.
-- `styles.js`: Process Sass files from `/src/scss/` into minified css using [`gulp-sass`](https://www.npmjs.com/package/gulp-sass), [`gulp-sourcemaps`](https://www.npmjs.com/package/gulp-sourcemaps), [`gulp-autoprefixer`](https://www.npmjs.com/package/gulp-autoprefixer) and [`gulp-cssnano`](https://www.npmjs.com/package/gulp-cssnano).
+- `serve.js`: Spins up a [BrowserSync](https://browsersync.io/docs/gulp) server at `localhost:3000`. Bundled with watch tasks for css/js/template changes.
+- `styles.js`: Processes Sass files from `/src/scss/` into minified css using [`gulp-sass`](https://www.npmjs.com/package/gulp-sass), [`gulp-sourcemaps`](https://www.npmjs.com/package/gulp-sourcemaps), [`gulp-autoprefixer`](https://www.npmjs.com/package/gulp-autoprefixer) and [`gulp-cssnano`](https://www.npmjs.com/package/gulp-cssnano).
 
 ### More on Nunjucks
 
 You can add [custom filters](https://mozilla.github.io/nunjucks/api.html#custom-filters) and [global variables](https://mozilla.github.io/nunjucks/api.html#addglobal) in the `manageEnv` function inside `tasks/nunjucks.js`.
 
 A collection of functions useful for making prose reader friendly is already included with [`journalize`](https://www.npmjs.com/package/journalize).
-
-### Issues
-
-There are known issues with this template:
-
-- There are warnings about outdated npm packages. The fix requires an upgrade of `babel-core`, which is a breaking fix.
-- I'm not certain that the `imagemin` task is actually reducing images.
 
 ### Future development
 
