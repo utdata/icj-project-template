@@ -16,6 +16,6 @@ gulp.task(
       'images'
     ),
     'nunjucks',
-//    'serve'
+    'serve'
   )
 );
