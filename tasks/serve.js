@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-import browserSync from 'browser-sync';
+const browserSync = require('browser-sync');
 const reload = browserSync.reload;
  
 module.exports = () => {
