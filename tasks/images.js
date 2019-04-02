@@ -7,7 +7,7 @@ const imageminPngquant = require('imagemin-pngquant');
 const imageminWebp = require('imagemin-webp');
 
 module.exports = () => {
-  return gulp.src('./src/assets/img/**/*')
+  return gulp.src('./src/img/**/*')
     .pipe(cache(imagemin([
       // lossy jpg compression
       imageminMozjpeg({
@@ -29,5 +29,5 @@ module.exports = () => {
         quality: 50
       })
   ])))
-    .pipe(gulp.dest('./docs/assets/img'))
+    .pipe(gulp.dest('./docs/img'))
 };
