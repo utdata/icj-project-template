@@ -6,7 +6,7 @@ Features:
 
 - [Bootstrap 4.1](https://getbootstrap.com/).
 - [Sass](https://sass-lang.com/) with [autoprefixer](https://github.com/postcss/autoprefixer).
-- Nunjucks templates with [`journalize`](https://www.npmjs.com/package/journalize) filters. Data and be made available to templates through the `project.config.json` file.
+- Nunjucks templates with [`journalize`](https://www.npmjs.com/package/journalize) filters. Data can be made available to templates through the `project.config.json` file or files in the `njk/_data` folder.
 - Browsersync server.
 - Image compression.
 - Publishing to `docs/` for [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
@@ -15,7 +15,7 @@ Features:
 
 If you are in my ICJ class, this is already done, but others will need to make sure you have gulp installed globally: `npm install -g gulp-cli`.
 
-- Create your project folder, called `yourname-final`.
+- Create a project folder to hold all your code.
 - Open VS Code into that folder and open the Terminal.
 - Run `degit utdata/icj-project-template`.
 - Create your Github repo and connect them.
@@ -26,8 +26,7 @@ Most of the files you edit for this project are in the `src` directory. The Gulp
 
 ```pre
 src
-|-- assets
-|   |-- img (Images go in here)
+|-- img (Images go in here)
 |-- js
 |-- njk
 |   |-- _data
@@ -46,7 +45,7 @@ src
 
 This project is configured to use Bootstrap 4 HTML/Sass as its core.
 
-[Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into templates for the main structure of your site so you don't have to repeat that code for each page on your site.
+[Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into reuseable templates so you don't have to repeat code for each page on your site.
 
 Templates work off several basic concepts:
 
