@@ -8,7 +8,7 @@ Features:
 - [Sass](https://sass-lang.com/) with [autoprefixer](https://github.com/postcss/autoprefixer).
 - Nunjucks templates with [`journalize`](https://www.npmjs.com/package/journalize) filters. Data can be made available to templates through the `project.config.json` file or files in the `njk/_data` folder.
 - Browsersync server.
-- Image compression.
+- Image compression for jpeg, png and webp formats.
 - Publishing to `docs/` for [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
 
 ## Setup
@@ -22,7 +22,7 @@ If you are in my ICJ class, this is already done, but others will need to make s
 
 ## Understanding this project
 
-Most of the files you edit for this project are in the `src` directory. The Gulp production process will generate the publishable files into the `docs` folder, which you shouldn't have to touch.
+Most of the files you edit for this project are in the `src` directory. The Gulp production process will generate the publishable files into the `docs` folder, which you shouldn't touch.
 
 ```pre
 src
@@ -30,12 +30,12 @@ src
 |-- js
 |-- njk
 |   |-- _data
-|      |-- data.json (Any data to be parsed by Nunjucks)
+|      |-- data.json (Any .json file is available to Nunjucks)
 |   |-- _layouts (Templates to be used by your pages)
 |      |-- base.njk
-|   |-- _partials (Reusable code for Templates)
+|   |-- _partials (Reusable code for layouts)
 |      |-- nav.njk
-|   |-- index.njk (Pages that become your site)
+|   |-- index.njk (Each `.njk` page here becomes a page on your site)
 |-- scss
 |   |-- main.scss (Sass files and partials)
 |   |-- _partials.scss
@@ -63,13 +63,13 @@ With these tools, you can build a site framework once as a Layout, and then _ext
 - The layout `src/njk/_layouts/detail.njk` is an example of a layout that _extends_ the base layout, but then allows the user to insert different content through the _content_ block.
 - Anything in `src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_.
 
-The Nunjucks community has adopted `.njk` as the file extension for templates. Because these files are inside a folder  and not at the `src/njk/` level, they do NOT become actual webpages on your site.
+The Nunjucks community has adopted `.njk` as the file extension for templates. Because these files are in folder names that start with `_` and not at the `src/njk/` level, they do NOT become actual webpages on your site.
 
 ### Pages
 
 All **pages** are kept in the root of the `src/njk/` folder. Each `.njk` file created here becomes an HTML page in `docs/`, and therefore a page on your website.
 
-- The page `src/njk/index.njk` is the main website page that _extends_ `src/njk/_layouts/base.njk`. You are coding only the main content of the page, and inheriting all the nav and other framework.
+- The page `src/njk/index.njk` is the main website page that _extends_ `src/njk/_layouts/base.njk`. You are coding only the main content of the page, and inheriting all the nav and other framework from the layout.
 - The page `src/njk/detail-page.njk` _extends_ the `src/njk/_layouts/detail.njk` layout, which is already extending `base.njk`. It allows you to have a different structure than the index file, yet still reuse it for many other pages.
 
 ### Using data in Nunjucks templates
@@ -102,18 +102,18 @@ Have a spreadsheet of data that you need to convert to JSON? Try [csvjson.com](h
 
 ### Filtering data for detail pages
 
-It is possible to select a single node or "row" from an array in `data.json` by its position to use in a detail page using the Nunjucks [set](https://mozilla.github.io/nunjucks/templating.html#set) tag. The position order starts at zero, so using the data example above, you could access "The Shipping News" author (and similar properties) like this:
+It is possible to select a single node or "row" from an array in `data.filename.json` by its position to use in a detail page using the Nunjucks [set](https://mozilla.github.io/nunjucks/templating.html#set) tag. The position order starts at zero, so using the books example above, you could access "The Shipping News" author (and similar properties) like this:
 
 ```html
 {% set book = data.books[1] %}
 <h1>{{ book.title }}</h1> # gets "The Shipping News" in data above
 ```
 
-Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `detail-page.html`.
+Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-page.html`.
 
 ### Sass/scss
 
-The `src/scss/` folder holds all the SCSS files. It is configured for Bootstrap and gets compiled into the `docs` folder for publication.
+The `src/scss/` folder holds all the SCSS files. It is configured for Bootstrap and the CSS gets compiled into the `docs` folder for publication.
 
 There is also and example of a Sass partial with the `src/scss/_nav.scss` file, which is imported into `src/scss/main.scss`.
 
@@ -129,9 +129,9 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 
 ### Gulp
 
-Gulp is task runner and is configured in `gulpfile.js`. Individual tasks live in `tasks`.
+Gulp is task runner and is configured in `gulpfile.js`. Individual tasks live in the `tasks` folder.
 
-- The default task `gulp` runs the `styles`, `lint`, `scripts`, `images` and `nunjucks` tasks to create the production files.
+- The default `gulp` task runs the `styles`, `lint`, `scripts`, `images` and `nunjucks` tasks to create the production files.
 - Running `gulp dev` runs the default tasks above plus `serve` for the BrowserSync server.
 - To run any specific gulp task: `gulp <name of task>`, e.g. `gulp clean`.
 
@@ -154,6 +154,5 @@ A collection of functions useful for making prose reader friendly is already inc
 
 ### Future development
 
-- I'd like to add a Nunjucks Markdown package of some sort to allow adding/editing of basic text in Markdown, perhaps with front-matter.
+- I'd like to add a Nunjucks Markdown package of some sort to allow adding/editing of basic text in Markdown, perhaps with front-matter. Would prefer to hook up through Google Docs. See [Issue 17](https://github.com/utdata/icj-project-template/issues/17).
 - I'd like to loop through data to create detail pages.
-- I'd like to store everything in Google Docs and Sheets. Perhaps using Markdown in the Google docs.
