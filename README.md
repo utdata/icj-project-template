@@ -25,25 +25,23 @@ If you are in my ICJ class, this is already done, but others will need to make s
 Most of the files you edit for this project are in the `src` directory. The Gulp production process will generate the publishable files into the `docs` folder, which you shouldn't touch.
 
 ```pre
-src
-|-- img (Images go in here)
-|-- js
-|-- njk
-|   |-- _data
-|      |-- data.json (Any .json file is available to Nunjucks)
-|   |-- _layouts (Templates to be used by your pages)
-|      |-- base.njk
-|   |-- _partials (Reusable code for layouts)
-|      |-- nav.njk
-|   |-- index.njk (Each `.njk` page here becomes a page on your site)
-|-- scss
-|   |-- main.scss (Sass files and partials)
-|   |-- _partials.scss
+├── src
+|  ├── img
+|  ├── js
+|  ├── njk
+|  |  ├── index.njk  (Each .njk file becomes an html page)
+|  |  ├── detail-page.njk
+|  |  ├── _data (For data)
+|  |  ├── _layouts (For templates)
+|  |  └── _partials (For reusable code)
+|  └── scss (For Sass files)
 ```
 
-## Nunjucks templates
+Each `.njk` file inside `src/njk` is published as an html file in `docs/`
 
-This project is configured to use Bootstrap 4 HTML/Sass as its core.
+All the other folders inside `src/njk` support those pages through Nunjucks templates.
+
+## Nunjucks templates
 
 [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into reuseable templates so you don't have to repeat code for each page on your site.
 
@@ -70,13 +68,13 @@ The Nunjucks community has adopted `.njk` as the file extension for templates. B
 All **pages** are kept in the root of the `src/njk/` folder. Each `.njk` file created here becomes an HTML page in `docs/`, and therefore a page on your website.
 
 - The page `src/njk/index.njk` is the main website page that _extends_ `src/njk/_layouts/base.njk`. You are coding only the main content of the page, and inheriting all the nav and other framework from the layout.
-- The page `src/njk/detail-page.njk` _extends_ the `src/njk/_layouts/detail.njk` layout, which is already extending `base.njk`. It allows you to have a different structure than the index file, yet still reuse it for many other pages.
+- The page `src/njk/detail-page.njk` _extends_ the `src/njk/_layouts/detail.njk` layout, which is already extending `base.njk`. It allows you to have a different structure for your content, yet still reuse navigation and such from the base layout.
 
 ### Using data in Nunjucks templates
 
 Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/templating.html#tags), like looping through data within templates.
 
-Most data should be saved as key-value pairs or as an array in the `src/njk/_data/data.json`. An example might be this:
+Most data should be saved as key-value pairs in a javascript array in the `src/njk/_data/data.json`. An example might be this:
 
 ```json
   "books": [
