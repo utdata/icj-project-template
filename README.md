@@ -30,7 +30,7 @@ Most of the files you edit for this project are in the `src` directory. The Gulp
 |  ├── js
 |  ├── njk
 |  |  ├── index.njk  (Each .njk file becomes an html page)
-|  |  ├── detail-page.njk
+|  |  ├── detail-book-example.njk
 |  |  ├── _data (For data)
 |  |  ├── _layouts (For templates)
 |  |  └── _partials (For reusable code)
@@ -68,7 +68,7 @@ The Nunjucks community has adopted `.njk` as the file extension for templates. B
 All **pages** are kept in the root of the `src/njk/` folder. Each `.njk` file created here becomes an HTML page in `docs/`, and therefore a page on your website.
 
 - The page `src/njk/index.njk` is the main website page that _extends_ `src/njk/_layouts/base.njk`. You are coding only the main content of the page, and inheriting all the nav and other framework from the layout.
-- The page `src/njk/detail-page.njk` _extends_ the `src/njk/_layouts/detail.njk` layout, which is already extending `base.njk`. It allows you to have a different structure for your content, yet still reuse navigation and such from the base layout.
+- The page `src/njk/detail-book-example.njk` _extends_ the `src/njk/_layouts/detail.njk` layout, which is already extending `base.njk`. It allows you to have a different structure for your content, yet still reuse navigation and such from the base layout.
 
 ### Using data in Nunjucks templates
 
@@ -107,7 +107,7 @@ It is possible to select a single node or "row" from an array in `data.filename.
 <h1>{{ book.title }}</h1> # gets "The Shipping News" in data above
 ```
 
-Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-page.html`.
+Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-book-example.njk`.
 
 ### Sass/scss
 
