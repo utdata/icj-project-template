@@ -41,6 +41,12 @@ Each `.njk` file inside `src/njk` is published as an html file in `docs/`
 
 All the other folders inside `src/njk` support those pages through Nunjucks templates.
 
+## Sass/scss
+
+The `src/scss/` folder holds all the SCSS files. It is configured for Bootstrap and the CSS gets compiled into the `docs` folder for publication.
+
+There is also and example of a Sass partial with the `src/scss/_nav.scss` file, which is imported into `src/scss/main.scss`.
+
 ## Nunjucks templates
 
 [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into reuseable templates so you don't have to repeat code for each page on your site.
@@ -109,11 +115,6 @@ It is possible to select a single node or "row" from an array in `data.filename.
 
 Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-page.html`.
 
-### Sass/scss
-
-The `src/scss/` folder holds all the SCSS files. It is configured for Bootstrap and the CSS gets compiled into the `docs` folder for publication.
-
-There is also and example of a Sass partial with the `src/scss/_nav.scss` file, which is imported into `src/scss/main.scss`.
 
 ### Deployment
 
@@ -149,6 +150,15 @@ Gulp is task runner and is configured in `gulpfile.js`. Individual tasks live in
 You can add [custom filters](https://mozilla.github.io/nunjucks/api.html#custom-filters) and [global variables](https://mozilla.github.io/nunjucks/api.html#addglobal) in the `manageEnv` function inside `tasks/nunjucks.js`.
 
 A collection of functions useful for making prose reader friendly is already included with [`journalize`](https://www.npmjs.com/package/journalize).
+
+In addition to data in the `src/njk/_data` folder, there is another place you can store variables to be used in Nunjucks templates. The `project.config.json` file is also imported when `gulp dev` is run. The template has some example data, and the snippet below shows an example of how to loop through a list of authors using Nunjucks.
+
+```html
+  <p class="author">By {% for author in authors %}
+    <a href="{{ author.link }}" target="_blank">{{ author.name }}</a>{% if not loop.last %}{% if loop.revindex0 == 1 %} and {% else %}, {% endif %}{% endif %} {% endfor %}
+    <br> Published {{ publish_date }}
+  </p>
+```
 
 ### Future development
 
