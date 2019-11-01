@@ -1,0 +1,12 @@
+{% extends '_layouts/detail.njk' %}
+{% set book = data.books[1] %}
+
+{% block info %}
+  <img src="https://via.placeholder.com/400.jpg?text=Placeholder+Image" alt="placeholder image" class="img-fluid">
+  <h5>{{ book.author }}</h5>
+{% endblock %}
+
+{% block story %}
+  <h2>{{ book.title }}</h2>
+  <p>{{ book.blurb }}</p>
+{% endblock %}
