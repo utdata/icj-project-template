@@ -113,8 +113,7 @@ It is possible to select a single node or "row" from an array in `data.filename.
 <h1>{{ book.title }}</h1> # gets "The Shipping News" in data above
 ```
 
-Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-book-example.njk`.
-
+Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-book-shipping-news.njk`.
 
 ### Deployment
 

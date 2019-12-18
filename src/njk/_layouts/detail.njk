@@ -3,12 +3,17 @@
 {% block content %}
 <article class="container">
   <div class="row">
-    <div class="col-sm-4 left-rail">
-      {% block info %}{% endblock %}
+    <div class="col-sm-4">
+      {% block info %}
+        <img src="https://placekitten.com/420/320" alt="" class="img-fluid">
+        <p>{{ book.author }}</p>
+      {% endblock %}
     </div>
     <div class="col-sm-8">
-      {% block story %}{% endblock %}
-
+      {% block blurb %}
+        <h1>{{ book.title}}</h1>
+       <p>{{ book.blurb }}</p>
+      {% endblock %}
     </div>
   </div>
 </article>
