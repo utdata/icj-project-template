@@ -5,7 +5,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('cssnano');
-const gutil = require('gulp-util');
+const log = require('fancy-log');
 const browserSync = require('browser-sync').create();
 
 module.exports = () => {
@@ -31,7 +31,7 @@ module.exports = () => {
     .pipe(newer('./docs/css'))
     .pipe(sourcemaps.init())
     .pipe(sass())
-    .on('error', gutil.log)
+    .on('error', log.error)
     .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(postcss(plugins))
     .pipe(sourcemaps.write())

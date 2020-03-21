@@ -3,7 +3,7 @@ const nunjucksRender = require('gulp-nunjucks-render');
 const journalize = require('journalize');
 const browserSync = require('browser-sync').create();
 const config = require('../project.config');
-const gutil = require('gulp-util');
+const log = require('fancy-log');
 const fs = require('fs');
 
 module.exports = (resolve, reject) => {
@@ -62,7 +62,7 @@ module.exports = (resolve, reject) => {
       path: 'src/njk',
       manageEnv: manageEnv,
     }))
-    .on('error', gutil.log)
+    .on('error', log.error)
     .pipe(gulp.dest('docs'))
     .pipe(browserSync.stream());
     resolve();
