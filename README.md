@@ -1,16 +1,14 @@
 # ICJ Project Template
 
-> Needs updates to explain two different detail layouts.
-
 A Node-based template system with a Gulp workflow set up for Github Pages publishing.
 
 Features:
 
-- [Bootstrap 4.1](https://getbootstrap.com/).
+- [Bootstrap 4.4](https://getbootstrap.com/).
 - [Sass](https://sass-lang.com/) with [autoprefixer](https://github.com/postcss/autoprefixer).
 - Nunjucks templates with [`journalize`](https://www.npmjs.com/package/journalize) filters. Data can be made available to templates through the `project.config.json` file or files in the `njk/_data` folder.
 - Browsersync server.
-- Image compression for jpeg, png and webp formats.
+- Image compression for jpeg and png formats.
 - Publishing to `docs/` for [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
 
 ## Setup
@@ -32,7 +30,8 @@ Most of the files you edit for this project are in the `src` directory. The Gulp
 |  ├── js
 |  ├── njk
 |  |  ├── index.njk  (Each .njk file becomes an html page)
-|  |  ├── detail-book-example.njk
+|  |  ├── detail-book-shipping-news.njk
+|  |  ├── detail-entry-example.njk
 |  |  ├── _data (For data)
 |  |  ├── _layouts (For templates)
 |  |  └── _partials (For reusable code)
@@ -66,7 +65,8 @@ With these tools, you can build a site framework once as a Layout, and then _ext
 **Layouts** and **partials** are parts of files used and extended elsewhere.
 
 - The layout `src/njk/_layouts/base.njk` is an example base template for a site. The idea is to build the framework of the site only once, even though you have many pages.
-- The layout `src/njk/_layouts/detail.njk` is an example of a layout that _extends_ the base layout, but then allows the user to insert different content through the _content_ block.
+- The layout `src/njk/_layouts/detail-entry.njk` is an example of a layout that _extends_ the base layout, but then allows the user to insert different content through the _content_ block.
+- The layout `src/njk/_layouts/detail-book.njk` is a more complicated layout that _extends_ the base layout, but then pulls in data. The matching `detail-book-shipping-news.njk` file pulls in one row of the example book data in the project.
 - Anything in `src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_.
 
 The Nunjucks community has adopted `.njk` as the file extension for templates. Because these files are in folder names that start with `_` and not at the `src/njk/` level, they do NOT become actual webpages on your site.
@@ -76,7 +76,8 @@ The Nunjucks community has adopted `.njk` as the file extension for templates. B
 All **pages** are kept in the root of the `src/njk/` folder. Each `.njk` file created here becomes an HTML page in `docs/`, and therefore a page on your website.
 
 - The page `src/njk/index.njk` is the main website page that _extends_ `src/njk/_layouts/base.njk`. You are coding only the main content of the page, and inheriting all the nav and other framework from the layout.
-- The page `src/njk/detail-book-example.njk` _extends_ the `src/njk/_layouts/detail.njk` layout, which is already extending `base.njk`. It allows you to have a different structure for your content, yet still reuse navigation and such from the base layout.
+- the page `src/njk/detail-entry-example.njk` _extends_ the `src/njk/_layouts/detail-entry.njk` layout, showing an example of how you can overwrite blocks in the layout.
+- The page `src/njk/detail-book-example.njk` _extends_ the `src/njk/_layouts/detail-book.njk` layout, which is already extending `base.njk`. It is an example of building a layout using example book data from the project, and then choosing one row of that data for the specific page.
 
 ### Using data in Nunjucks templates
 
@@ -112,10 +113,12 @@ It is possible to select a single node or "row" from an array in `data.filename.
 
 ```html
 {% set book = data.books[1] %}
-<h1>{{ book.title }}</h1> # gets "The Shipping News" in data above
+<h1>{{ book.title }}</h1>
 ```
 
-Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-book-shipping-news.njk`.
+Counting starts a 0 in JavaScript so this example the second value in the data, or "The Shipping News."
+
+Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-book-shipping-news.njk` and the corresponding layout `src/njk/_layouts/detail-book.njk`.
 
 ### Deployment
 
@@ -125,7 +128,7 @@ By default, the `docs/` folder is committed to Github because we are using [Gith
 
 Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment.
 
-## Technical bits on how this project is structured
+## Technical notes on how this project is structured
 
 ### Gulp
 
