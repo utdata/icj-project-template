@@ -1,5 +1,7 @@
 # ICJ Project Template
 
+> Needs updates to explain two different detail layouts.
+
 A Node-based template system with a Gulp workflow set up for Github Pages publishing.
 
 Features:

@@ -2,26 +2,18 @@
 
 {% block page_title %}New index page title{% endblock %}
 
-{% block content %}
+{% block description %}The search description for this page goes here.{% endblock %}
 
+{% block content %}
 <div class="container">
   <div class="row">
     <div class="col">
-    <h1>Main headline</h1>
-    <p class="author">By Obi-Wan Kenobi</p>
-    <p class="date"> Published May 25, 1977</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <p>
-        Lucas ipsum dolor <a href="detail-book-shipping-news.html">link to a book page example</a> amidala sith dooku solo moff organa obi-wan windu. Gamorrean binks wedge darth. Mon darth mon kit ponda solo. Moff watto ackbar mothma moff anakin. Lando skywalker lars fett calrissian lars organa. Organa kenobi wedge darth jawa skywalker anakin. Twi'lek kit darth calamari lando kamino droid. Darth jawa fett grievous maul. Palpatine obi-wan leia tusken raider dagobah. Twi'lek qui-gon boba antilles yoda thrawn. Wampa luuke wampa skywalker. Moff ponda ackbar dagobah kit lobot jinn solo.
-      </p>
+      <h1>Main headline</h1>
+      <p>This is a <a href="detail-entry-example.html">link to a blog entry example</a> which shows a simple detail entry page example. It uses the "data-entry.njk" layout.</p>
+      <p>This is a <a href="detail-book-shipping-news.html">link to a book page example</a> which uses a more complex detail layout (detail-book.njk) where data is pulled into the layout and the page calls for a specific row in the data.</p>
       <ul> 
         {% for book in data.books %}
           <li>{{ book.title }}, {{ book.author }}</li>
-        {% else %}
-          <li>This would display if the 'books' collection were empty</li>
         {% endfor %}
      </ul>
     </div>
