@@ -54,9 +54,9 @@ There is also and example of a Sass partial with the `src/scss/_nav.scss` file, 
 
 Templates work off several basic concepts:
 
-- Template inheritance using _extends_.
-- _blocks_ which serve as variables or replaceable code.
-- _include_ which pulls in code from other files.
+- _extends_ is used to specify template inheritance, meaning you can "build upon" templates to avoid repeating code.
+- _block_ defines a section on the template and identifies it with a name. This is used by template inheritance. Base templates can specify blocks and child templates can override them with new content.
+- _include_ pulls in other templates in place. It's useful when you need to share smaller chunks across several templates that already inherit other templates.
 
 With these tools, you can build a site framework once as a Layout, and then _extend_ or "use" that layout and all it's code, but swap out predefined _blocks_ specific to your new page.
 
@@ -115,8 +115,6 @@ It is possible to select a single node or "row" from an array in `data.filename.
 {% set book = data.books[1] %}
 <h1>{{ book.title }}</h1>
 ```
-
-Counting starts a 0 in JavaScript so this example the second value in the data, or "The Shipping News."
 
 Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-book-shipping-news.njk` and the corresponding layout `src/njk/_layouts/detail-book.njk`.
 
