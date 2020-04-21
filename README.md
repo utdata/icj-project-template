@@ -134,6 +134,7 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 2. Make sure you're logged into your personal gmail account. If you use your school email, you might not have permissions to create a service account. Follow the link above and click on `Go to the Service Account Key page`.
 3. First, you must create a project. Project is a little misleading because you do not need to do this for each project. You only need to do this once per email address per computer.
 4. Create a service account key. After you create this key, a file will be saved on your machine. This file is important! I'm going to put mine in a folder with all of my other projects, for example: `/Users/wangelbert/Desktop/projects/utdata/icj-project-306222d7b682.json`.
+5. Go to the [API Library](https://console.developers.google.com/apis/library), find the Google Docs and Sheets APIs, select `icj-project` at the top-left corner and then enable both APIs.
 
 ### Setting up the environment variable
 
@@ -141,8 +142,8 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
    ```
    echo $SHELL
    ```
-   Mine returns `/bin/zsh`, so my default shell is zsh. Therefore my zsh configuration file is `~/.zshrc`.
-6. Point the environment variable to the json file. For example, I am adding this line to my `~/.zshrc`.
+   Mine returns `/bin/zsh`, so my default shell is `zsh`. Therefore my zsh configuration file is `~/.zshrc`. Think of this file as a script that runs every time you start a new shell.
+6. Point the environment variable to the json file in your configuration file. We are setting this environment variable to authenticate ourselves using the information in the json file when we want to grab data from Google's API.
 
    ```
    export GOOGLE_APPLICATION_CREDENTIALS="/Users/wangelbert/Desktop/projects/utdata/icj-project-306222d7b682.json"
@@ -153,10 +154,11 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 ### Using Google Docs and Sheets
 
 7. Create a Google Doc or Google Sheet depending on your project's needs.
-8. Take note of the id. For example, if the link is `https://docs.google.com/document/d/1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4/edit`, then id would be `1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4`.
-9. Open up `project.config.js` and replace `fileId` with the id. Each object in the `files` array corresponds to a google doc or sheet.
-10. Specify whether your file is a `doc` or `sheet` and give it a name, which will be the name of the outputted json file.
-11. Run `npm run data:fetch` and the text or data in your google files will be outputted as json in the correct folders.
+8. Make sure you enable view access by clicking on the Share button on the top-right corner.
+9. Take note of the id. For example, if the link is `https://docs.google.com/document/d/1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4/edit`, then id would be `1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4`.
+10. Open up `project.config.js` and replace `fileId` with the id. Each object in the `files` array corresponds to a google doc or sheet.
+11. Specify whether your file is a `doc` or `sheet` and give it a name, which will be the name of the outputted json file.
+12. Run `npm run data:fetch` and the text or data in your google files will be outputted as json in the correct folders.
 
 You only need to create a service account and set up your environment variable once, but you need to configure your google doc and sheet ids for each project.
 
