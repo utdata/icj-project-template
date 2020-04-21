@@ -48,6 +48,40 @@ The `src/scss/` folder holds all the SCSS files. It is configured for Bootstrap 
 
 There is also and example of a Sass partial with the `src/scss/_nav.scss` file, which is imported into `src/scss/main.scss`.
 
+## How to use ArchieML and Google Sheets in your projects
+
+### Creating a service account
+
+1. The instructions for how to create a service account on Google are [here](https://cloud.google.com/docs/authentication/getting-started).
+2. Make sure you're logged into your personal gmail account. If you use your school email, you might not have permissions to create a service account. Follow the link above and click on `Go to the Service Account Key page`.
+3. First, you must create a project. Project is a little misleading because you do not need to do this for each project. You only need to do this once per email address per computer.
+4. Create a service account key. After you create this key, a file will be saved on your machine. This file is important! I'm going to put mine in a folder with all of my other projects, for example: `/Users/wangelbert/Desktop/projects/utdata/icj-project-306222d7b682.json`.
+
+### Setting up the environment variable
+
+5. Figure out what the default shell is on your machine. You can do this by running this in terminal.
+   ```
+   echo $SHELL
+   ```
+   Mine returns `/bin/zsh`, so my default shell is zsh. Therefore my zsh configuration file is `~/.zshrc`.
+6. Point the environment variable to the json file. For example, I am adding this line to my `~/.zshrc`.
+
+   ```
+   export GOOGLE_APPLICATION_CREDENTIALS="/Users/wangelbert/Desktop/projects/utdata/icj-project-306222d7b682.json"
+   ```
+
+   Refer to Google's instructions if you're using Windows.
+
+### Using Google Docs and Sheets
+
+7. Create a Google Doc or Google Sheet depending on your project's needs.
+8. Take note of the id. For example, if the link is `https://docs.google.com/document/d/1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4/edit`, then id would be `1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4`.
+9. Open up `project.config.js` and replace `fileId` with the id. Each object in the `files` array corresponds to a google doc or sheet.
+10. Specify whether your file is a `doc` or `sheet` and give it a name, which will be the name of the outputted json file.
+11. Run `npm run data:fetch` and the text or data in your google files will be outputted as json in the correct folders.
+
+You only need to create a service account and set up your environment variable once, but you need to configure your google doc and sheet ids for each project.
+
 ## Nunjucks templates
 
 [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into reuseable templates so you don't have to repeat code for each page on your site.
@@ -156,10 +190,13 @@ A collection of functions useful for making prose reader friendly is already inc
 In addition to data in the `src/njk/_data` folder, there is another place you can store variables to be used in Nunjucks templates. The `project.config.json` file is also imported when `gulp dev` is run. The template has some example data, and the snippet below shows an example of how to loop through a list of authors using Nunjucks.
 
 ```html
-  <p class="author">By {% for author in authors %}
-    <a href="{{ author.link }}" target="_blank">{{ author.name }}</a>{% if not loop.last %}{% if loop.revindex0 == 1 %} and {% else %}, {% endif %}{% endif %} {% endfor %}
-    <br> Published {{ publish_date }}
-  </p>
+<p class="author">
+  By {% for author in authors %}
+  <a href="{{ author.link }}" target="_blank">{{ author.name }}</a>{% if not
+  loop.last %}{% if loop.revindex0 == 1 %} and {% else %}, {% endif %}{% endif
+  %} {% endfor %} <br />
+  Published {{ publish_date }}
+</p>
 ```
 
 ### Future development
