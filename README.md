@@ -130,35 +130,56 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 
 ### Creating a service account
 
-1. The instructions for how to create a service account on Google are [here](https://cloud.google.com/docs/authentication/getting-started).
-2. Make sure you're logged into your personal gmail account. If you use your school email, you might not have permissions to create a service account. Follow the link above and click on `Go to the Service Account Key page`.
-3. First, you must create a project. Project is a little misleading because you do not need to do this for each project. You only need to do this once per email address per computer. I've named my project `icj-project`.
-4. Create a service account key. I've named my key `icj`, and make yourself the `Project --> Owner`. After you create this key, a file will be saved on your machine. This file is important! I'm going to put mine in a folder with all of my other projects, for example: `/Users/wangelbert/Desktop/projects/utdata/icj-project-306222d7b682.json`.
-5. Go to the [API Library](https://console.developers.google.com/apis/library), find the Google Docs and Sheets APIs, select `icj-project` at the top-left corner and then enable both APIs.
+The instructions for how to create a service account on Google are [here](https://cloud.google.com/docs/authentication/getting-started). **Make sure you're logged into a personal gmail account**. If you use your school email, you might not have permissions to create a service account. Follow the link above and click on `Go to the Service Account Key page`.
+
+- First, you must create a project. Project is a little misleading because you do not need to do this for each project. You only need to do this once per email address per computer. I've named my project `icj-project`.
+
+> Question for Elbert here: Will I ]have to set up a new "project" if I'm using the same account but a different computer? Or can I just use the same credentials file on two computers?
+
+- You are next directed to create a service account key.
+  - For **Service account**, choose "New service account"
+  - For the **Service account name**, I've used `icj`. The **Service account ID** will get filled out for you.
+  - For Role, use the **Select a role** dropdown and go to `Project --> Owner` and select it.
+- Once you hit **Create key**, a file will be saved on your machine. _This file is important_ and you need to keep it on your machine! I put mine in the same folder with all of my other icj class projects, for example: `/Users/christian/Documents/icj/icj-project-306222d7b682.json`.
+- Click on **Library** in the left navigation to go to the [API Library](https://console.developers.google.com/apis/library)
+- Use the search to find the Google Docs API and choose it.
+  - Make sure `icj-project` is selected in the top nav near the Google Cloud Services logo.
+  - Then click on the **Enable** buttton to activate it.
+- Sue the search bar to find `Google Sheets API` and do the same to enable that.
 
 ### Setting up the environment variable
 
-6. Figure out what the default shell is on your machine. You can do this by running this in terminal.
-   ```
-   echo $SHELL
-   ```
-   Mine returns `/bin/zsh`, so my default shell is `zsh`. Therefore my zsh configuration file is `~/.zshrc`. Think of this file as a script that runs every time you start a new shell.
-7. Point the environment variable to the json file in your configuration file. We are setting this environment variable to authenticate ourselves using the information in the json file when we want to grab data from Google's API.
+We are setting this environment variable to authenticate ourselves using the information in the json file when we want to grab data from Google's API.
 
-   ```
-   export GOOGLE_APPLICATION_CREDENTIALS="/Users/wangelbert/Desktop/projects/utdata/icj-project-306222d7b682.json"
-   ```
+#### Mac setup
 
-   Refer to Google's instructions if you're using Windows.
+> We can assume bash here for the time being. I force that since Windows users have Git Bash. Might have to reconsider that some day ...
+>- Figure out what the default shell is on your machine. You can do this by running this in terminal.
+>   ```
+>   echo $SHELL
+>   ```
+
+- In Visual Studio Code, open your `.bash_profile` file, which is stored in your home user folder. You can likely use `code ~/.bash_profile` to open it. You should see some stuff the already from other configurations.
+  - If your default shell is `zsh`. instead use the file `~/.zshrc`.
+- Point the environment variable to your .json configuration file. Use the example below, but your path an file name.
+
+```
+## Google Auth
+export GOOGLE_APPLICATION_CREDENTIALS="/Users/christian/Documents/icj/icj-project-306222d7b682.json"
+```
+
+### Windows setup
+
+Refer to [Google's instructions if you're using Windows](https://cloud.google.com/docs/authentication/getting-started#windows).
 
 ### Using Google Docs and Sheets
 
-8. Create a Google Doc or Google Sheet depending on your project's needs. You can write [ArchieML](http://archieml.org/) in Google Docs and convert it to json using this rig, which will let you template it out in Nunjucks. You can use the [Archie Sandbox](http://archieml.org/sandbox.html) to see what the outputted json will look like.
+- Create a Google Doc or Google Sheet depending on your project's needs. You can write [ArchieML](http://archieml.org/) in Google Docs and convert it to json using this rig, which will let you template it out in Nunjucks. You can use the [Archie Sandbox](http://archieml.org/sandbox.html) to see what the outputted json will look like.
 <!-- 9. Make sure you enable view access by clicking on the Share button on the top-right corner. -->
-9. Take note of your file ids. For example, if my link is `https://docs.google.com/document/d/1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4/edit`, then my file id would be `1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4`.
-10. Open up `project.config.js` and replace `fileId` with this id. Each object in the `files` array corresponds to a google doc or sheet.
-11. Specify whether your file is a `doc` or `sheet` and give it a name, which will be the name of the outputted json file, ie `data.json` or `covid.json`.
-12. Run `npm run data:fetch` to output the text and/or data in your google files as json in the correct folders. You will need to run this command every time you make a change in a doc or sheet and want to update it in your project.
+- Take note of your file ids. For example, if my link is `https://docs.google.com/document/d/1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4/edit`, then my file id would be `1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4`.
+- Open up `project.config.js` and replace `fileId` with this id. Each object in the `files` array corresponds to a google doc or sheet.
+- Specify whether your file is a `doc` or `sheet` and give it a name, which will be the name of the outputted json file, ie `data.json` or `covid.json`.
+- Run `npm run data:fetch` to output the text and/or data in your google files as json in the correct folders. You will need to run this command every time you make a change in a doc or sheet and want to update it in your project.
 
 You only need to create a service account and set up your environment variable once, but you need to configure your google doc and sheet ids for each project.
 
