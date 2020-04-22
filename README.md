@@ -132,8 +132,8 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 
 1. The instructions for how to create a service account on Google are [here](https://cloud.google.com/docs/authentication/getting-started).
 2. Make sure you're logged into your personal gmail account. If you use your school email, you might not have permissions to create a service account. Follow the link above and click on `Go to the Service Account Key page`.
-3. First, you must create a project. Project is a little misleading because you do not need to do this for each project. You only need to do this once per email address per computer.
-4. Create a service account key. After you create this key, a file will be saved on your machine. This file is important! I'm going to put mine in a folder with all of my other projects, for example: `/Users/wangelbert/Desktop/projects/utdata/icj-project-306222d7b682.json`.
+3. First, you must create a project. Project is a little misleading because you do not need to do this for each project. You only need to do this once per email address per computer. I've named my project `icj-project`.
+4. Create a service account key. I've named my key `icj`, and make yourself the `Project --> Owner`. After you create this key, a file will be saved on your machine. This file is important! I'm going to put mine in a folder with all of my other projects, for example: `/Users/wangelbert/Desktop/projects/utdata/icj-project-306222d7b682.json`.
 5. Go to the [API Library](https://console.developers.google.com/apis/library), find the Google Docs and Sheets APIs, select `icj-project` at the top-left corner and then enable both APIs.
 
 ### Setting up the environment variable
