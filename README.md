@@ -138,12 +138,12 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 
 ### Setting up the environment variable
 
-5. Figure out what the default shell is on your machine. You can do this by running this in terminal.
+6. Figure out what the default shell is on your machine. You can do this by running this in terminal.
    ```
    echo $SHELL
    ```
    Mine returns `/bin/zsh`, so my default shell is `zsh`. Therefore my zsh configuration file is `~/.zshrc`. Think of this file as a script that runs every time you start a new shell.
-6. Point the environment variable to the json file in your configuration file. We are setting this environment variable to authenticate ourselves using the information in the json file when we want to grab data from Google's API.
+7. Point the environment variable to the json file in your configuration file. We are setting this environment variable to authenticate ourselves using the information in the json file when we want to grab data from Google's API.
 
    ```
    export GOOGLE_APPLICATION_CREDENTIALS="/Users/wangelbert/Desktop/projects/utdata/icj-project-306222d7b682.json"
@@ -153,12 +153,12 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 
 ### Using Google Docs and Sheets
 
-7. Create a Google Doc or Google Sheet depending on your project's needs.
-8. Make sure you enable view access by clicking on the Share button on the top-right corner.
-9. Take note of the id. For example, if the link is `https://docs.google.com/document/d/1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4/edit`, then id would be `1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4`.
-10. Open up `project.config.js` and replace `fileId` with the id. Each object in the `files` array corresponds to a google doc or sheet.
-11. Specify whether your file is a `doc` or `sheet` and give it a name, which will be the name of the outputted json file.
-12. Run `npm run data:fetch` and the text or data in your google files will be outputted as json in the correct folders.
+8. Create a Google Doc or Google Sheet depending on your project's needs. You can write [ArchieML](http://archieml.org/) in Google Docs and convert it to json using this rig, which will let you template it out in Nunjucks. You can use the [Archie Sandbox](http://archieml.org/sandbox.html) to see what the outputted json will look like.
+<!-- 9. Make sure you enable view access by clicking on the Share button on the top-right corner. -->
+9. Take note of your file ids. For example, if my link is `https://docs.google.com/document/d/1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4/edit`, then my file id would be `1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4`.
+10. Open up `project.config.js` and replace `fileId` with this id. Each object in the `files` array corresponds to a google doc or sheet.
+11. Specify whether your file is a `doc` or `sheet` and give it a name, which will be the name of the outputted json file, ie `data.json` or `covid.json`.
+12. Run `npm run data:fetch` to output the text and/or data in your google files as json in the correct folders. You will need to run this command every time you make a change in a doc or sheet and want to update it in your project.
 
 You only need to create a service account and set up your environment variable once, but you need to configure your google doc and sheet ids for each project.
 
