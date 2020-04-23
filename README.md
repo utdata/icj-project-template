@@ -132,9 +132,7 @@ Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-
 
 The instructions for how to create a service account on Google are [here](https://cloud.google.com/docs/authentication/getting-started). **Make sure you're logged into a personal gmail account**. If you use your school email, you might not have permissions to create a service account. Follow the link above and click on `Go to the Service Account Key page`.
 
-- First, you must create a project. Project is a little misleading because you do not need to do this for each project. You only need to do this once per email address per computer. I've named my project `icj-project`.
-
-> Question for Elbert here: Will I ]have to set up a new "project" if I'm using the same account but a different computer? Or can I just use the same credentials file on two computers?
+- First, you must create a project. Project is a little misleading because you do not need to do this for each project. You only need to do this once per email address. I've named my project `icj-project`.
 
 - You are next directed to create a service account key.
   - For **Service account**, choose "New service account"
@@ -154,7 +152,8 @@ We are setting this environment variable to authenticate ourselves using the inf
 #### Mac setup
 
 > We can assume bash here for the time being. I force that since Windows users have Git Bash. Might have to reconsider that some day ...
->- Figure out what the default shell is on your machine. You can do this by running this in terminal.
+>
+> - Figure out what the default shell is on your machine. You can do this by running this in terminal.
 >   ```
 >   echo $SHELL
 >   ```
