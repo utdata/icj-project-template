@@ -143,7 +143,7 @@ The instructions for how to create a service account on Google are [here](https:
 - Use the search to find the Google Docs API and choose it.
   - Make sure `icj-project` is selected in the top nav near the Google Cloud Services logo.
   - Then click on the **Enable** buttton to activate it.
-- Sue the search bar to find `Google Sheets API` and do the same to enable that.
+- Use the search bar to find `Google Sheets API` and do the same to enable that.
 
 ### Setting up the environment variable
 
@@ -160,10 +160,10 @@ We are setting this environment variable to authenticate ourselves using the inf
 
 - In Visual Studio Code, open your `.bash_profile` file, which is stored in your home user folder. You can likely use `code ~/.bash_profile` to open it. You should see some stuff the already from other configurations.
   - If your default shell is `zsh`. instead use the file `~/.zshrc`.
-- Point the environment variable to your .json configuration file. Use the example below, but your path an file name.
+- Point the environment variable to your .json configuration file. Use the example below, but with your own path and file name.
 
 ```
-## Google Auth
+# Google Auth
 export GOOGLE_APPLICATION_CREDENTIALS="/Users/christian/Documents/icj/icj-project-306222d7b682.json"
 ```
 
