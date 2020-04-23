@@ -209,7 +209,7 @@ The `type` key is used to denote whether this is a Google Doc (`doc`) or a Googl
 
 **name**
 
-The `name` key controls what filename it will receive once it's put in the `data/` directory. So if the `name` is `hello`, it'll be saved to `data/hello.json`.
+The `name` key controls what filename it will receive once it's put in the `data/` directory. So if the `name` is `hello`, it'll be saved to `src/njk/_data/hello.json`.
 
 #### Google Docs
 
