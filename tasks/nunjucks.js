@@ -6,7 +6,6 @@ const config = require("../project.config.json");
 const log = require("fancy-log");
 const fs = require("fs");
 
-console.log(config);
 module.exports = (resolve, reject) => {
   // nunjucks environment setup
   const manageEnv = function (env) {

@@ -173,14 +173,61 @@ Refer to [Google's instructions if you're using Windows](https://cloud.google.co
 
 ### Using Google Docs and Sheets
 
-- Create a Google Doc or Google Sheet depending on your project's needs. You can write [ArchieML](http://archieml.org/) in Google Docs and convert it to json using this rig, which will let you template it out in Nunjucks. You can use the [Archie Sandbox](http://archieml.org/sandbox.html) to see what the outputted json will look like.
-<!-- 9. Make sure you enable view access by clicking on the Share button on the top-right corner. -->
-- Take note of your file ids. For example, if my link is `https://docs.google.com/document/d/1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4/edit`, then my file id would be `1urEasbqUXCoTERo0-CylFedsTwGUFa1arE9QlcAwQW4`.
-- Open up `project.config.js` and replace `fileId` with this id. Each object in the `files` array corresponds to a google doc or sheet.
-- Specify whether your file is a `doc` or `sheet` and give it a name, which will be the name of the outputted json file, ie `data.json` or `covid.json`.
-- Run `npm run data:fetch` to output the text and/or data in your google files as json in the correct folders. You will need to run this command every time you make a change in a doc or sheet and want to update it in your project.
+To fetch data from your Google Doc or Sheet, fill out `project.config.json` and run `gulp fetch`.
 
-You only need to create a service account and set up your environment variable once, but you need to configure your google doc and sheet ids for each project.
+`icj-project-template` projects support downloading ArchieML-formatted Google Docs and correctly-formatted Google Sheets directly from Google Drive for use within your templates. All files you want to use in your projects should be listed in `project.config.json` under the `files` key. You are not limited to one of each.
+
+```js
+{ // ...
+  /**
+    * Any Google Doc and Google Sheet files to be synced with this project.
+    */
+  files: [
+    {
+      fileId: '<the-document-id-from-the-url>',
+      type: 'doc',
+      name: 'text',
+    },
+    {
+      fileId: '<the-sheet-id-from-the-url>',
+      type: 'sheet',
+      name: 'data',
+    },
+  // ...
+}
+```
+
+Each object representing a file needs three things:
+
+**fileId**
+
+The `fileId` key represents the ID of a Google Doc or Google Sheet. This is most easily found in the URL of a document when you have it open in your browser.
+
+**type**
+
+The `type` key is used to denote whether this is a Google Doc (`doc`) or a Google Sheet (`sheet`). This controls how it gets processed.
+
+**name**
+
+The `name` key controls what filename it will receive once it's put in the `data/` directory. So if the `name` is `hello`, it'll be saved to `data/hello.json`.
+
+#### Google Docs
+
+ArchieML Google Docs work as documented on the [ArchieML](http://archieml.org/) site. This includes the automatic conversion of links to `<a>` tags! You can use the [Archie Sandbox](http://archieml.org/sandbox.html) to see what the outputted json will look like.
+
+#### Google Sheets
+
+For more information about how the Google Sheets processor works, check out the `sheet-to-data` [library](https://github.com/rdmurphy/sheet-to-data).
+
+Google Sheets processed may potentially require some additional configuration. Each sheet (or tab) in a Google Sheet is converted separately by the kit, and keyed-off in the output object by the _name of the sheet_.
+
+By default it treats every sheet in a Google Sheet as being formatted as a `table`. In other words, every _row_ is considered an item, and the _header row_ determines the key of each value in a _column_.
+
+The Google Sheets processor also supports a `key-value` format as popularized by [`copytext`](https://github.com/nprapps/copytext) ([and its Node.js counterpart](https://github.com/rdmurphy/node-copytext)). This treats everything in the _first column_ as the key, and everything in the _second column_ as the value matched to its key. Every other column is _ignored_.
+
+To activate the `key-value` format, add `:kv` to the end of a sheet's filename. (For consistency you can also use `:table` to tell the processor to treat a sheet as a `table`, but it is not required due to it being the default.)
+
+If there are any sheets you want to exclude from being processed, you can do it via two ways: hide them using the native _hide_ mechanism in Google Sheets, or add `:skip` to the end of the sheet name.
 
 ## Technical notes on how this project is structured
 

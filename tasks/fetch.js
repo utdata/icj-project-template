@@ -11,6 +11,11 @@ const { docToArchieML } = require("@newswire/doc-to-archieml");
 const { sheetToData } = require("@newswire/sheet-to-data");
 const config = require("../project.config.json");
 
+module.exports = (resolve, reject) => {
+  getData();
+  resolve();
+};
+
 async function getData() {
   const auth = await google.auth.getClient({
     scopes: [
@@ -49,5 +54,3 @@ async function getData() {
 function logDownload(fileName, fileId, color) {
   console.log(colors[color](`Downloaded \`${fileName}\` (${fileId})`));
 }
-
-getData().catch(console.error);
