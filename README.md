@@ -18,7 +18,10 @@ If you are in my ICJ class, this is already done, but others will need to make s
 - Create a project folder to hold all your code.
 - Open VS Code into that folder and open the Terminal.
 - Run `degit utdata/icj-project-template`.
+- Initialize your repo, add and commit the files.
 - Create your Github repo and connect them.
+
+Make sure you run `degit` to get all your files _before_ you initialize your repo.
 
 ## Understanding this project
 
@@ -30,8 +33,7 @@ Most of the files you edit for this project are in the `src` directory. The Gulp
 |  ├── js
 |  ├── njk
 |  |  ├── index.njk  (Each .njk file becomes an html page)
-|  |  ├── detail-book-shipping-news.njk
-|  |  ├── detail-entry-example.njk
+|  |  ├── detail-shipping-news.njk
 |  |  ├── _data (For data)
 |  |  ├── _layouts (For templates)
 |  |  └── _partials (For reusable code)
@@ -65,8 +67,7 @@ With these tools, you can build a site framework once as a Layout, and then _ext
 **Layouts** and **partials** are parts of files used and extended elsewhere.
 
 - The layout `src/njk/_layouts/base.njk` is an example base template for a site. The idea is to build the framework of the site only once, even though you have many pages.
-- The layout `src/njk/_layouts/detail-entry.njk` is an example of a layout that _extends_ the base layout, but then allows the user to insert different content through the _content_ block.
-- The layout `src/njk/_layouts/detail-book.njk` is a more complicated layout that _extends_ the base layout, but then pulls in data. The matching `detail-book-shipping-news.njk` file pulls in one row of the example book data in the project.
+- The layout `src/njk/_layouts/detail.njk` is a layout that _extends_ the base layout, but then pulls in data. The matching `detail-shipping-news.njk` file pulls in one row of the example book data in the project.
 - Anything in `src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_.
 
 The Nunjucks community has adopted `.njk` as the file extension for templates. Because these files are in folder names that start with `_` and not at the `src/njk/` level, they do NOT become actual webpages on your site.
@@ -76,14 +77,13 @@ The Nunjucks community has adopted `.njk` as the file extension for templates. B
 All **pages** are kept in the root of the `src/njk/` folder. Each `.njk` file created here becomes an HTML page in `docs/`, and therefore a page on your website.
 
 - The page `src/njk/index.njk` is the main website page that _extends_ `src/njk/_layouts/base.njk`. You are coding only the main content of the page, and inheriting all the nav and other framework from the layout.
-- the page `src/njk/detail-entry-example.njk` _extends_ the `src/njk/_layouts/detail-entry.njk` layout, showing an example of how you can overwrite blocks in the layout.
-- The page `src/njk/detail-book-example.njk` _extends_ the `src/njk/_layouts/detail-book.njk` layout, which is already extending `base.njk`. It is an example of building a layout using example book data from the project, and then choosing one row of that data for the specific page.
+- The page `src/njk/detail-shipping-news.njk` _extends_ the `src/njk/_layouts/detail.njk` layout, which is already extending `base.njk`. It is an example of building a layout using example book data from the project, and then choosing one row of that data for the specific page.
 
 ### Using data in Nunjucks templates
 
 Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/templating.html#tags), like looping through data within templates.
 
-Most data should be saved as key-value pairs in a javascript array in the `src/njk/_data/data.json`. An example might be this:
+Most data should be saved as key-value pairs in a javascript array in the `src/njk/_data/library.json`. An example might be this:
 
 ```json
   "books": [
@@ -112,11 +112,11 @@ Have a spreadsheet of data that you need to convert to JSON? Try [csvjson.com](h
 It is possible to select a single node or "row" from an array in `data.filename.json` by its position to use in a detail page using the Nunjucks [set](https://mozilla.github.io/nunjucks/templating.html#set) tag. The position order starts at zero, so using the books example above, you could access "The Shipping News" author (and similar properties) like this:
 
 ```html
-{% set book = data.books[1] %}
+{% set book = library.books[1] %}
 <h1>{{ book.title }}</h1>
 ```
 
-Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-book-shipping-news.njk` and the corresponding layout `src/njk/_layouts/detail-book.njk`.
+Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-shipping-news.njk` and the corresponding layout `src/njk/_layouts/detail.njk`.
 
 ### Deployment
 
@@ -151,18 +151,11 @@ We are setting this environment variable to authenticate ourselves using the inf
 
 #### Mac setup
 
-> We can assume bash here for the time being. I force that since Windows users have Git Bash. Might have to reconsider that some day ...
->
-> - Figure out what the default shell is on your machine. You can do this by running this in terminal.
->   ```
->   echo $SHELL
->   ```
-
 - In Visual Studio Code, open your `.bash_profile` file, which is stored in your home user folder. You can likely use `code ~/.bash_profile` to open it. You should see some stuff the already from other configurations.
   - If your default shell is `zsh`. instead use the file `~/.zshrc`.
 - Point the environment variable to your .json configuration file. Use the example below, but with your own path and file name.
 
-```
+```bash
 # Google Auth
 export GOOGLE_APPLICATION_CREDENTIALS="/Users/christian/Documents/icj/icj-project-306222d7b682.json"
 ```

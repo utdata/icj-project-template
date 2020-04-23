@@ -1,4 +1,16 @@
 {
+  "files": [
+    {
+      "fileId": "1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4",
+      "type": "doc",
+      "name": "books"
+    },
+    {
+      "fileId": "1gDwO-32cgpBDn_0niV0iu6TqQTaRDr4nmSqnT53magY",
+      "type": "sheet",
+      "name": "library"
+    }
+  ],
   "publish_date": "Feb. 6, 2017",
   "authors": [
     {
@@ -8,18 +20,6 @@
     {
       "name": "Person Two",
       "link": "https://twitter.com/XXXXXXXXXXXXX"
-    }
-  ],
-  "files": [
-    {
-      "fileId": "1G3KD3Ldqb8y_wj0wHp4l_R7SPDc_sZ161w0ay7ltrRc",
-      "type": "doc",
-      "name": "data"
-    },
-    {
-      "fileId": "1lhSKXYudyDQPzjx21-r9x5ITrWibWHB68oUzsfOZoes",
-      "type": "sheet",
-      "name": "covid"
     }
   ]
 }
