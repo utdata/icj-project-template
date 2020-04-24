@@ -1,8 +1,8 @@
 {% extends '_layouts/base.njk' %}
 
-{% block page_title %}New index page title{% endblock %}
+{% block page_title %}Index page title{% endblock %}
 
-{% block page_description %}The search description for this page goes here.{% endblock %}
+{% block page_description %}The index search description for this page goes here.{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -19,12 +19,13 @@
   </div>
   <div class="row">
     <div class="col">
-    <h2>Independent bookstores in Austin</h2>
-    {% for store in bookstores.stores %}
-    <h3><a href="{{ store.url }}" target="_blank">{{ store.name }}</a></h3>
-    <p>{{ store.address}}</p>
-    <hr>
-    {% endfor %}
+      <h2>Independent bookstores in Austin</h2>
+      <hr>
+      {% for store in bookstores.stores %}
+        <h3><a href="{{ store.url }}" target="_blank">{{ store.name }}</a></h3>
+        <p>{{ store.address}}</p>
+        <hr>
+      {% endfor %}
     </div>
   </div>
 </div>
