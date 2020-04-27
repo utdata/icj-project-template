@@ -5,28 +5,32 @@
 {% block page_description %}The index search description for this page goes here.{% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h1>Main headline</h1>
-      <p>This is a <a href="detail-shipping-news.html">link to a book page example</a> which uses a detail layout (detail-book.njk) where data is pulled into the layout and the page calls for a specific row in the data.</p>
-      <ul> 
-        {% for book in library.books %}
-          <li>{{ book.title }}, {{ book.author }}</li>
-        {% endfor %}
-     </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Main headline hi</h1>
+        <p>This is a <a href="detail-shipping-news.html">link to a book page example</a> which uses a detail layout (detail-book.njk) where data is pulled into the layout and the page calls for a specific row in the data.</p>
+        <ul>
+          {% for book in library.books %}
+            <a href="/books/{{book.slug}}.html">
+              <li>{{ book.title }}, {{ book.author }}</li>
+            </a>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <h2>Independent bookstores in Austin</h2>
-      <hr>
-      {% for store in bookstores.stores %}
-        <h3><a href="{{ store.url }}" target="_blank">{{ store.name }}</a></h3>
-        <p>{{ store.address}}</p>
+    <div class="row">
+      <div class="col">
+        <h2>Independent bookstores in Austin</h2>
         <hr>
-      {% endfor %}
+        {% for store in bookstores.stores %}
+          <h3>
+            <a href="{{ store.url }}" target="_blank">{{ store.name }}</a>
+          </h3>
+          <p>{{ store.address}}</p>
+          <hr>
+        {% endfor %}
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}

@@ -11,7 +11,8 @@ gulp.task(
     "styles",
     "copy",
     gulp.parallel("lint", "scripts", "images"),
-    "nunjucks"
+    "nunjucks",
+    "bake"
   )
 );
 
@@ -20,3 +21,5 @@ gulp.task("dev", gulp.series("default", "serve"));
 gulp.task("clear");
 
 gulp.task("fetch");
+
+// gulp.task("bake");
