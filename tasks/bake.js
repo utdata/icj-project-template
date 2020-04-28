@@ -5,12 +5,13 @@ const config = require("../project.config.json");
 const gulpData = require("gulp-data");
 const rename = require("gulp-rename");
 const browserSync = require("browser-sync").create();
+const isValidGlob = require("is-valid-glob");
 
 //modularize manageEnv
 const journalize = require("journalize");
 const fs = require("fs");
 
-module.exports = (resolve, reject) => {
+module.exports = (resolve) => {
   const dataDir = "src/njk/_data/";
 
   //modularize manageEnv from nunjucks.js
@@ -58,12 +59,49 @@ module.exports = (resolve, reject) => {
     }
   };
 
+  if (!config.to_bake) {
+    resolve();
+    return;
+  }
+
   config.to_bake.forEach((bake) => {
+    if (!bake.layout) {
+      throw new Error(`bake.layout is undefined. Add a nunjucks layout.`);
+    }
+    if (!bake.slug) {
+      throw new Error(
+        `bake.slug is undefined. Specify a key that will be used as the slug for the page.`
+      );
+    }
+    if (bake.path == null) {
+      throw new Error(
+        `bake.path is undefined. Specify a path where your pages will be baked.`
+      );
+    }
+
     let data = require(`../${dataDir}${bake.data}.json`);
     if (typeof data === "object") {
       data = data[bake.dataKey];
     }
+    if (!data) {
+      throw new Error(
+        `data[${bake.dataKey}] is undefined. Specify the valid dataKey.`
+      );
+    }
+
     data.forEach((d) => {
+      if (!d[bake.slug]) {
+        throw new Error(
+          `d[${bake.slug}] is undefined. Specify a key that will be used as the slug for the page.`
+        );
+      }
+
+      if (!isValidGlob(`docs/${bake.path}/${d[bake.slug]}.html`)) {
+        throw new Error(
+          `docs/${bake.path}/${d[bake.slug]}.html is not a valid glob.`
+        );
+      }
+
       gulp
         .src(`src/njk/_layouts/${bake.layout}.njk`)
         .pipe(gulpData(d))

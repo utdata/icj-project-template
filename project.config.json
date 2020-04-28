@@ -28,7 +28,7 @@
       "dataKey": "books",
       "layout": "detail",
       "slug": "slug",
-      "path": "books/"
+      "path": "books"
     }
   ]
 }
