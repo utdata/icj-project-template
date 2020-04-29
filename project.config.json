@@ -21,5 +21,14 @@
       "name": "Person Two",
       "link": "https://twitter.com/XXXXXXXXXXXXX"
     }
+  ],
+  "to_bake": [
+    {
+      "data": "library",
+      "dataKey": "books",
+      "layout": "detail",
+      "slug": "slug",
+      "path": "books"
+    }
   ]
 }
