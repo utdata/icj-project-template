@@ -17,9 +17,3 @@ gulp.task(
 );
 
 gulp.task("dev", gulp.series("default", "serve"));
-
-gulp.task("clear");
-
-gulp.task("fetch");
-
-// gulp.task("bake");

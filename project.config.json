@@ -1,14 +1,5 @@
 {
-  "to_bake": [
-    {
-      "data": "library",
-      "dataKey": "books",
-      "layout": "detail",
-      "slug": "slug",
-      "path": "books"
-    }
-  ],
-    "files": [
+  "files": [
     {
       "fileId": "1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4",
       "type": "doc",
@@ -18,6 +9,15 @@
       "fileId": "1gDwO-32cgpBDn_0niV0iu6TqQTaRDr4nmSqnT53magY",
       "type": "sheet",
       "name": "bookstores"
+    }
+  ],
+  "to_bake": [
+    {
+      "data": "library",
+      "dataKey": "books",
+      "layout": "detail-book",
+      "slug": "slug",
+      "path": "books"
     }
   ],
   "publish_date": "Feb. 6, 2017",

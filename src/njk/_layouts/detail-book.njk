@@ -9,16 +9,16 @@
 {% block content %}
   <article class="container">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         {% block info %}
-          <img src="https://placekitten.com/420/320" alt="" class="img-fluid">
+          <img src="../img/{{ slug }}.jpg" alt="" class="img-fluid">
           <p>{{ author }}</p>
         {% endblock %}
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-9">
         {% block blurb %}
           <h1>{{ title }}</h1>
-          <p>{{ blurb }}</p>
+          <p>{{ blurb | safe }}</p>
         {% endblock %}
       </div>
     </div>
