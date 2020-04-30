@@ -1,5 +1,14 @@
 {
-  "files": [
+  "to_bake": [
+    {
+      "data": "library",
+      "dataKey": "books",
+      "layout": "detail",
+      "slug": "slug",
+      "path": "books"
+    }
+  ],
+    "files": [
     {
       "fileId": "1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4",
       "type": "doc",
@@ -20,15 +29,6 @@
     {
       "name": "Person Two",
       "link": "https://twitter.com/XXXXXXXXXXXXX"
-    }
-  ],
-  "to_bake": [
-    {
-      "data": "library",
-      "dataKey": "books",
-      "layout": "detail",
-      "slug": "slug",
-      "path": "books"
     }
   ]
 }
