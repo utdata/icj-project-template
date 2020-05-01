@@ -70,10 +70,10 @@ With these tools, you can build a site framework once as a Layout, and then _ext
 **Layouts** and **partials** are parts of files used and extended elsewhere.
 
 - The layout `src/njk/_layouts/base.njk` is an example base template for a site. The idea is to build the framework of the site only once, even though you have many pages.
-- The layout `src/njk/_layouts/detail.njk` is a page that _extends_ the base layout, but then pulls in data. The matching `detail-shipping-news.njk` page pulls in one row of the example book data in the project.
+- The layout `src/njk/_layouts/detail-book.njk` is a page that _extends_ the base layout, but then pulls in data. This example is configured with a powerful feature called "bake" that generate pages from a layout and data.
 - Files in `src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_.
 
-The Nunjucks community has adopted `.njk` as the file extension for templates. Because all folders are named with `_` at the beginning, they do NOT become actual webpages on your site.
+The Nunjucks community has adopted `.njk` as the file extension for templates. Files that are not pages are stored in folders to they are not processed and named with `_` at the beginning as a matter of convention.
 
 ### Pages
 

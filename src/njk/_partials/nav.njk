@@ -7,11 +7,12 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
+          Library
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="/detail-shipping-news.html">Data detail example</a>
-          <a class="dropdown-item" href="#">Extra link goes nowhere</a>
+          {% for book in library.books %}
+          <a class="dropdown-item" href="{{ book.slug}}.html">{{ book.title }}</a>
+          {% endfor %}
         </div>
       </li>
     </ul>

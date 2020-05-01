@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col">
         <h1>Main headline</h1>
-        <p>This is a <a href="detail-shipping-news.html">link to a book page example</a> which uses a detail layout (detail-book.njk) where data is pulled into the layout and the page calls for a specific row in the data.</p>
+        <p>Text for the page.</p>
         <ul>
           {% for book in library.books %}
             <li><a href="/books/{{book.slug}}.html">{{ book.title }}, {{ book.author }} </a></li>
@@ -25,7 +25,7 @@
           <h3>
             <a href="{{ store.url }}" target="_blank">{{ store.name }}</a>
           </h3>
-          <p>{{ store.address}}</p>
+          <p>{{ store.address}}, {{ store.city }}, {{ store.state }} {{ store.zip }}</p>
           <hr>
         {% endfor %}
       </div>
