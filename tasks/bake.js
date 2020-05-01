@@ -81,11 +81,11 @@ module.exports = (resolve) => {
 
     let data = require(`../${dataDir}${bake.data}.json`);
     if (typeof data === "object") {
-      data = data[bake.dataKey];
+      data = data[bake.array];
     }
     if (!data) {
       throw new Error(
-        `data[${bake.dataKey}] is undefined. Specify the valid dataKey.`
+        `data[${bake.array}] is undefined. Specify the valid array.`
       );
     }
 

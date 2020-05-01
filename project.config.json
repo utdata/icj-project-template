@@ -13,9 +13,9 @@
   ],
   "to_bake": [
     {
-      "data": "library",
-      "dataKey": "books",
       "layout": "detail-book",
+      "data": "library",
+      "array": "books",
       "slug": "slug",
       "path": "books"
     }

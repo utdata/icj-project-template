@@ -57,6 +57,8 @@ There is an example of a Sass partial with the `src/scss/_nav.scss` file, which 
 
 [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into reuseable templates so you don't have to repeat code for each page on your site.
 
+The Nunjucks community has adopted `.njk` as the standard file extension.
+
 Templates work off several basic concepts:
 
 - _extends_ is used to specify template inheritance, meaning you can "build upon" templates to avoid repeating code.
@@ -70,31 +72,36 @@ With these tools, you can build a site framework once as a Layout, and then _ext
 **Layouts** and **partials** are parts of files used and extended elsewhere.
 
 - The layout `src/njk/_layouts/base.njk` is an example base template for a site. The idea is to build the framework of the site only once, even though you have many pages.
-- The layout `src/njk/_layouts/detail-book.njk` is a page that _extends_ the base layout, but then pulls in data. This example is configured with a powerful feature called "bake" that generate pages from a layout and data.
-- Files in `src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_.
+- The layout `src/njk/_layouts/detail-book.njk` is a page that _extends_ the base layout, but then pulls in data. This example is configured with a powerful feature called "bake" that generate pages from a layout and data. More on that below.
+- Files in `src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_. This allows you to organize and reuse the same code throughout your site.
 
-The Nunjucks community has adopted `.njk` as the file extension for templates. Files that are not pages are stored in folders to they are not processed and named with `_` at the beginning as a matter of convention.
+It's important that these folders start with `_` so they are not processed as new HTML pages on your site.
 
 ### Pages
 
-All **pages** are kept in the root of the `src/njk/` folder. Each `.njk` file created here becomes an HTML page in `docs/`, and therefore a page on your website.
+All **pages** are kept in the `src/njk/` folder. Each `.njk` file (including those in a nested folder) will be processed and become an `.html` file in `docs/`, and therefore a webpage on your website.
 
-- The page `src/njk/index.njk` is the homepage of website page. It _extends_ `src/njk/_layouts/base.njk`. You are coding only the main content of the page, and inheriting the nav and other framework from the base layout. This example includes some loops to build content from the example books and bookstores data, described in detail below.
-- The page `src/njk/detail-shipping-news.njk` _extends_ the `src/njk/_layouts/detail.njk` layout, which is already extending `base.njk`. It is an example of building a layout using example books data from the project, and then choosing one row of that data for the specific page.
+An important exception: `.njk` files inside folders that start with `_` like `src/njk/_layouts` are not processed as new pages. That is why layouts and partials are stored in such folders.
+
+This project includes an example page `src/njk/index.njk`, which is the homepage of the website. It _extends_ `src/njk/_layouts/base.njk`. Using the _block_ and _extend_ features allows you to worry about only main content of the page, as it inheritsthe nav and other framework from the base layout. This example includes some loops to build content from the example books and bookstores data, described in detail below.
+
+To create new webpage, just add a new file in `src/njk/` with the `.njk` extension.
 
 ### Using data in Nunjucks templates
 
 Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/templating.html#tags), like looping through data within templates.
 
-Most data should be saved as key-value pairs in a javascript array in the `src/njk/_data/library.json`. An example might be this:
+Data used in the project must be saved as a JSON fle in the `src/njk/_data/` folder. There are some examples in the project, including `library.json`. While not the full file, this is an example of an array of key-value pairs in that file:
 
 ```json
   "books": [
     {
+      "slug": "the-clown",
       "title": "The Clown",
       "author": "Heinrich Böll"
     },
     {
+      "slug": "the-shipping-news",
       "title": "The Shipping News",
       "author": "Annie Proulx"
     }
@@ -102,25 +109,41 @@ Most data should be saved as key-value pairs in a javascript array in the `src/n
 }
 ```
 
-- You can access this data in a loop as `library.books.title`. There is an example in the `index.njk` file.
-- You can add new `*.json` files into `src/njk/_data/` and they will be added to the Nunjucks context as `filename.arrayname.property`.
-- With the Google Drive authentication described below, you can store data in Google Sheets or Docs and "fetch" it as a json array, which will be saved in the `src/njk/_data` folder.
+There is an example in `index.njk` of using a loop to access data in these files.
+
+- You can add new `*.json` files into `src/njk/_data/` and they will be added to the Nunjucks context as `filename.arrayname`, with key values with `{{ arrayname.key }}`.
+- With the Google Drive authentication described below, you can store data in Google Sheets or Docs and "fetch" it as JSON arrays, which will be saved in the `src/njk/_data` folder.
 - You can also create global variables in `project.config.json` as key-value pairs or arrays.
 
 > IMPORTANT: If you add/change/delete data in JSON files, you must re-run the `gulp dev` command to make it available to Nunjucks.
 
-If you wand to manually create json from spreadsheet of data you can use [csvjson.com](https://www.csvjson.com/csv2json). Better yet, use the Google Drive method described below.
+### Generating detail pages from data
 
-### Filtering data for detail pages
+It is possible to generate multiple pages from data and a Nunjucks data. The process requires three things:
 
-It is possible to select a single node or "row" from a JSON array for use in a detail page using the Nunjucks [set](https://mozilla.github.io/nunjucks/templating.html#set) tag to pluck out the row. The position order starts at zero, so using the books example above, you could access "The Shipping News" data — the second value in the array — like this:
+- A Nunjucks layout. There is an example in the project: `src/njk/_layouts/detail-book.njk`. Data is accessed as `{{ keyvalue }}` as the file and array are set in the config file.
+- A JSON data file saved in `_data`.
+- Configuration in the `project.config.json` file, which has several requirements:
 
-```html
-{% set book = library.books[1] %}
-<h1>{{ book.title }}</h1>
+```json
+"to_bake": [
+    {
+      "layout": "detail-book",
+      "data": "library",
+      "array": "books",
+      "slug": "slug",
+      "path": "books"
+    }
+  ]
 ```
 
-Using this method, you can create a single detail layout that can be extended to multiple detail pages, each using a single "row" from the JSON array. There is an example in `src/njk/detail-shipping-news.njk` and the corresponding layout `src/njk/_layouts/detail.njk`.
+- `layout` is the name of the layout file stored in `src/njk/_layouts` that will be used to build the pages. Note you don't need the extension in name.
+- `data` is the name of the data file to build from. You don't need `.json` in the name.
+- `array` is the name of the array you are using.
+- `slug` is a key required from the data that will become the filename of each file created. The field used in the data needs to be in a URL-friendly format with all lowercase letters with dashes instead of spaces.
+- The `path` an optional folder to save the files into. Make it an empty string to save in the root of `docs/`.
+
+You can "bake" the files using `gulp bake`, but the command is also included in the default `gulp` and `gulp dev` commands.
 
 ## Deployment
 
