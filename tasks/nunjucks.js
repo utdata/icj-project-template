@@ -17,7 +17,7 @@ module.exports = (resolve, reject) => {
       }
     }
 
-    let data_dir = "src/njk/_data/";
+    let data_dir = "src/data/";
 
     // loop over the directory of files
     fs.readdir(data_dir, function (err, files) {
