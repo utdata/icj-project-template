@@ -25,7 +25,7 @@ async function getData() {
   });
   const { files } = config;
   for (const file of files) {
-    const filepath = path.join("src/njk/_data", `${file.name}.json`);
+    const filepath = path.join("src/data", `${file.name}.json`);
 
     let data;
     let color;

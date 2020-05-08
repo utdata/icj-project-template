@@ -12,7 +12,7 @@ const journalize = require("journalize");
 const fs = require("fs");
 
 module.exports = (resolve) => {
-  const dataDir = "src/njk/_data/";
+  const dataDir = "src/data/";
 
   //modularize manageEnv from nunjucks.js
   const manageEnv = function (env) {
@@ -24,7 +24,7 @@ module.exports = (resolve) => {
       }
     }
 
-    let data_dir = "src/njk/_data/";
+    let data_dir = "src/data/";
 
     // loop over the directory of files
     fs.readdir(data_dir, function (err, files) {
