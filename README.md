@@ -1,16 +1,16 @@
 # ICJ Project Template
 
-A Node-based template system with a Gulp workflow set up for Github Pages publishing.
+This project template was developed for the [Intro to Coding for Journalists](https://github.com/utdata/icj-class) class taught by Christian McDonald, Assistant Professor of Practice at the School of Journalism, Moody College of Communication, University of Texas at Austin.
+
+The development concepts used in this template are similar in rigs used in modern newsroom like the Texas Tribune , L.A. Times and NPR. A student of the class (or other journalist) may find the features sufficient (or a good start) for data-driven online presentations.
 
 ## Features
 
-- [Bootstrap 4.4](https://getbootstrap.com/).
-- [Sass](https://sass-lang.com/) with [autoprefixer](https://github.com/postcss/autoprefixer).
-- [Nunjucks Templating](https://mozilla.github.io/nunjucks/templating.html) with [`journalize`](https://www.npmjs.com/package/journalize) filters. Data can be made available to templates through the `project.config.json` file or files in the `njk/_data` folder.
-- Connections to use Google Sheets and Docs (with [ArchieML](http://archieml.org/)) to manage data and content.
-- Image compression for jpeg and png formats.
-- Browsersync server.
-- Publishing to `docs/` for [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
+This Node-based template system uses a Gulp workflow configured for Github Pages publishing. Some of the features include:
+
+- [Bootstrap 4.4](https://getbootstrap.com/) and [Sass](https://sass-lang.com/).
+- [Nunjucks Templating](https://mozilla.github.io/nunjucks/templating.html) with [`journalize`](https://www.npmjs.com/package/journalize) filters.
+- Ability to configure Google Sheets and Docs (with [ArchieML](http://archieml.org/)) to manage data and content.
 
 ## Setup
 
@@ -18,7 +18,7 @@ If you are in my ICJ class, this is already done, but others might go through [i
 
 To start a new project:
 
-- Create a project folder to hold all your code.
+- Create a project folder for all your code.
 - Open VS Code into that folder and open the Terminal.
 - Run `degit utdata/icj-project-template`.
 - Initialize your repo, add and commit the files.
@@ -43,9 +43,7 @@ Most of the files you edit for this project are in the `src` directory. The Gulp
 |  └── scss (For Sass/CSS files)
 ```
 
-Each `.njk` file inside `src/njk` is compiled as an HTML file in `docs/`.
-
-All the other folders inside `src/njk` support those pages through Nunjucks templates.
+Each `.njk` file inside `src/njk` or a nested folder is compiled as an HTML file in `docs/`. Folders inside `src/njk` that start with `_` support those pages through Nunjucks templates and do NOT become HTML files.
 
 ## Sass/scss
 
@@ -55,24 +53,22 @@ There is an example of a Sass partial with the `src/scss/_nav.scss` file, which 
 
 ## Nunjucks templates
 
-[Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into reuseable templates so you don't have to repeat code for each page on your site.
-
-The Nunjucks community has adopted `.njk` as the standard file extension.
+[Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into reuseable templates so you don't have to repeat code for each page on your site. The Nunjucks community has adopted `.njk` as the standard file extension.
 
 Templates work off several basic concepts:
 
 - _extends_ is used to specify template inheritance, meaning you can "build upon" templates to avoid repeating code.
 - _block_ defines a section on the template and identifies it with a name. This is used by template inheritance. Pages that extend a template can override or append to the blocks with new content.
-- _include_ pulls in other code files in place. It's useful when you need to share smaller chunks of code across several files.
+- _include_ pulls in other code files in place. It's useful to organize or share smaller chunks of code across several files.
 
-With these tools, you can build a site framework once as a Layout, and then _extend_ or "use" that layout and all it's code, but swap out predefined _blocks_ specific to your new page.
+With these tools, you can build a site framework once as a Layout, and then _extend_ that layout and use all its code, but swap out predefined _blocks_ specific to your new page.
 
 ### Layouts
 
 **Layouts** and **partials** are parts of files used and extended elsewhere.
 
 - The layout `src/njk/_layouts/base.njk` is an example base template for a site. The idea is to build the framework of the site only once, even though you might have many pages.
-- The layout `src/njk/_layouts/detail-book.njk` is a page that _extends_ the base layout, but then pulls in data. This example is configured for a powerful feature of this project template called "bake" that generates pages from a layout and data. More on that below.
+- The layout `src/njk/_layouts/detail-book.njk` is a page that _extends_ the base layout, but then pulls in data. This example is configured for a powerful feature in this this project template called "bake" that generates pages from a layout and data. More on that below.
 - Files in `src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_. This allows you to organize and reuse the same code throughout your site.
 
 It's important that these folders start with `_` so they are not processed as new HTML pages on your site.
@@ -89,7 +85,7 @@ To create a new webpage, just add a new file in `src/njk/` with the `.njk` exten
 
 Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/templating.html#tags), like looping through data.
 
-Data used in the project must be saved as a JSON fle in the `src/njk/_data/` folder. There are some examples in the project, including `library.json`. While not the full file, this is an example of an array of key-value pairs:
+Data used in the project must be saved as a JSON file in the `src/njk/_data/` folder. There are some examples in the project, including `library.json`. While not the full file, this is an example of an array of key-value pairs:
 
 ```json
   "books": [
@@ -109,7 +105,7 @@ Data used in the project must be saved as a JSON fle in the `src/njk/_data/` fol
 
 There is an example using a loop to access data in these files in `index.njk`.
 
-- You can add new `*.json` files into `src/njk/_data/` and they will be added to the Nunjucks context as `filename.arrayname`. Data is access with a data tag `{{ arrayname.key }}`.
+- You can add new `*.json` files into `src/njk/_data/` and they will be added to the Nunjucks context as `filename.arrayname`. Data is accessed with a Nunjucks variable `{{ arrayname.key }}`.
 - Optionally, with the Google Drive authentication described below, you can store data in Google Sheets or Docs and "fetch" it as JSON arrays, which will be saved in the `src/njk/_data` folder.
 - You can also create global variables in `project.config.json` as key-value pairs or arrays.
 
@@ -119,8 +115,8 @@ There is an example using a loop to access data in these files in `index.njk`.
 
 It is possible to "bake" multiple pages from data and a Nunjucks layout. The process requires three things:
 
-- A Nunjucks layout. There is an example in the project: `src/njk/_layouts/detail-book.njk`. Data is accessed as `{{ keyvalue }}` as the file and array are set in the config file.
-- A JSON data file saved in `_data`.
+- A Nunjucks layout. There is an example in the project: `src/njk/_layouts/detail-book.njk`. Data is accessed in the layout through Nunjuckes variables `{{ keyvalue }}` as set int the `project.config.json`  file.
+- A JSON data file saved in `src/njk/_data`.
 - Configuration in the `project.config.json` file, which has several requirements:
 
 ```json
