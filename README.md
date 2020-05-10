@@ -36,8 +36,9 @@ Most of the files you edit for this project are in the `src` directory. The Gulp
 |  ├── img (For image files)
 |  ├── js (For custom JavaScript)
 |  ├── njk
+|  |  ├── _includes (For code snippets)
 |  |  ├── _layouts (For templates)
-|  |  ├── _partials (For reusable code)
+|  |  ├── _macros (For reusable code)
 |  |  └── index.njk (Becomes an HTML page)
 |  └── scss (For Sass/CSS files)
 ```
@@ -52,25 +53,25 @@ There is an example of a Sass partial with the `src/scss/_nav.scss` file, which 
 
 ## Nunjucks templates
 
-[Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to break your HTML into reuseable templates so you don't have to repeat code for each page on your site. The Nunjucks community has adopted `.njk` as the standard file extension.
+[Nunjucks](https://mozilla.github.io/nunjucks/templating.html) allows you to write and reuse code in templates so you don't have to repeat code for each page of your site. The Nunjucks community has adopted `.njk` as the standard file extension.
 
 Templates work off several basic concepts:
 
 - _extends_ is used to specify template inheritance, meaning you can "build upon" templates to avoid repeating code.
-- _block_ defines a section in a template and identifies it with a name. This is used by template inheritance. Pages that extend a template can override or append to these reserved blocks with new content.
-- _include_ pulls in other code files in place. It's useful to organize or share smaller chunks of code across several files.
+- _block_ defines a section in a template and identifies it with a name. Pages that extend a template can override or append to these reserved blocks with new content.
+- _include_ pulls in other templates files in place. It's useful to organize or share smaller chunks of code across several files.
+- _macro_ allows you to define reusable chunks of content. It is similar to a function in a programming language.
 
 With these tools, you can build a site framework once as a Layout, and then _extend_ that layout and use all its code, but swap out predefined _blocks_ specific to your new page.
 
-### Layouts and partials
+### Nunjucks template examples
 
-**Layouts** and **partials** are parts of files used and extended elsewhere.
+This template organizes Nunjucks helper files into folders that start with `_` so their contents won't be complied into full pages on your site. There are examples of **layouts**, **includes** and **macros**.
 
 - The layout `src/njk/_layouts/base.njk` is an example base template for a website. The idea is to build the framework of the site only once, even though you might have many pages.
-- The layout `src/njk/_layouts/detail-book.njk` is a page that _extends_ the base layout, but then pulls in data. This example is configured for a powerful feature of  this project template called "bake" that generates pages from a layout and data. More on that below.
-- Files in `src/njk/_partials/` are snippets of code used by other layouts through a Nunjucks tag called _include_. This allows you to organize and reuse the same code throughout your site. Some examples are included in the template.
+- Files in `src/njk/_includes/` are snippets of code used by other layouts through a Nunjucks tag called _include_. This allows you to organize and reuse the same code throughout your site. You can see how the  `nav.njk` and `footer.njk` includes are pulled into the `base.njk` layout.
 
-It's important that these folders start with `_` so that files inside are not processed as new HTML pages on your site.
+Some of the other files in those folders are discussed as advanced features later.
 
 ### Pages
 
@@ -80,7 +81,13 @@ This project includes the example `src/njk/index.njk`, which is the homepage of 
 
 To create a new webpage, just add a new file in `src/njk/` with the `.njk` extension. You'll want to _extend_ the `_layouts/base.njk` template and put your content inside the `{% block content %}{% endblock %}` block.
 
-### Using data in Nunjucks templates
+### Deployment
+
+This project is designed to bundle the finished website into the `docs` folder, which can then be published anywhere you have a server. We use "docs" instead of the more common "public" or "dist" to take advantage of [Github Pages](https://help.github.com/categories/github-pages-basics/) for free hosting of our site. As such, the `docs/` folder is also committed to Github.
+
+Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment using the `master/docs` folder.
+
+## Using data in Nunjucks templates
 
 Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/templating.html#tags), like looping through data.
 
@@ -110,18 +117,18 @@ There is an example using a loop to access data in these files in `index.njk`.
 
 > IMPORTANT: If you add/change/delete data in JSON files, you must re-run the `gulp dev` command to make it available to Nunjucks.
 
-### Generating detail pages from data
+### Bake pages from data and layout
 
-It is possible to "bake" multiple pages from data and a Nunjucks layout. The process requires three things:
+It is possible to generate (or "bake") multiple pages from data and a Nunjucks layout. The process requires three things:
 
-- A Nunjucks layout. There is an example in the project: `src/njk/_layouts/detail-book.njk`. Data is accessed in the layout through Nunjuckes variables `{{ keyvalue }}` as set int the `project.config.json`  file.
+- A Nunjucks layout. There is an example in the project: `src/njk/_layouts/bake-book.njk`. Data is accessed in the layout through Nunjucks variables `{{ keyvalue }}` as set in the `project.config.json`  file.
 - A JSON data file saved in `src/data`.
 - Configuration in the `project.config.json` file, which has several requirements:
 
 ```json
 "to_bake": [
     {
-      "layout": "detail-book",
+      "layout": "bake-book",
       "data": "library",
       "array": "books",
       "slug": "slug",
@@ -134,17 +141,11 @@ It is possible to "bake" multiple pages from data and a Nunjucks layout. The pro
 - `data` is the name of the data file to build from. You don't need `.json` in the name.
 - `array` is the name of the array you are using from the JSON file.
 - `slug` is a key required from the data that will become the filename of each file created. The field used in the data needs to be in a URL-friendly format with all lowercase letters with dashes instead of spaces.
-- The `path` an optional folder to save the files into. Use an empty string to save the files at the root of `docs/`.
+- `path` is an optional folder to save the files into. Use an empty string to save the files at the root of `docs/`.
 
 You can configure more than one "bake" task by adding new configurations to the `to_bake` array.
 
 The command to generate the files is `gulp bake`, but the task is also included in the default `gulp` and `gulp dev` commands.
-
-## Deployment
-
-This project is designed to bundle the finished website into the `docs` folder, which can then be published anywhere you have a server. We use "docs" instead of the more common "public" or "dist" to take advantage of [Github Pages](https://help.github.com/categories/github-pages-basics/) for free hosting of our site. As such, the `docs/` folder is also committed to Github.
-
-Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment using the `master/docs` folder.
 
 ## Using data from Google Drive
 
@@ -178,13 +179,6 @@ Each object representing a Google Drive file needs three things:
 
 Once your Google Sheet or Docs are set up and entered into `project.config.json`, you can run `gulp fetch` to download the data. You must then run `gulp dev` to load that data into the Nunjucks context. If you are already running gulp dev, be sure to kill the process with Control-c, then run `gulp fetch` and restart `gulp dev` again to get the new data.
 
-### Google Docs
-
-ArchieML Google Docs work as documented on the [ArchieML](http://archieml.org/) site. This includes the automatic conversion of links to `<a>` tags! You can use the [Archie Sandbox](http://archieml.org/sandbox.html) to see what the outputted json will look like.
-
-- The Docs example used in this project is at [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit).
-- See [@newswire/doc-to-archieml](https://www.npmjs.com/package/@newswire/doc-to-archieml) and [ArchieML](http://archieml.org/) for more information on preparing these Google Docs as data.
-
 ### Google Sheets
 
 For more information about how the Google Sheets processor works, check out the [sheet-to-data library](https://github.com/rdmurphy/sheet-to-data). The example Sheet used in this project is at [Bookstores data](https://docs.google.com/spreadsheets/d/1gDwO-32cgpBDn_0niV0iu6TqQTaRDr4nmSqnT53magY/edit#gid=0).
@@ -198,6 +192,30 @@ The Google Sheets processor also supports a `key-value` format as popularized by
 To activate the `key-value` format, add `:kv` to the end of a sheet's filename. (For consistency you can also use `:table` to tell the processor to treat a sheet as a `table`, but it is not required due to it being the default.)
 
 If there are any sheets you want to exclude from being processed, you can do it via two ways: hide them using the native _hide_ mechanism in Google Sheets, or add `:skip` to the end of the sheet name.
+
+### Google Docs
+
+ArchieML Google Docs work as documented on the [ArchieML](http://archieml.org/) site. This includes the automatic conversion of links to `<a>` tags! You can use the [Archie Sandbox](http://archieml.org/sandbox.html) to see what the outputted json will look like.
+
+- The Docs example used in this project is at [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit).
+- See [@newswire/doc-to-archieml](https://www.npmjs.com/package/@newswire/doc-to-archieml) and [ArchieML](http://archieml.org/) for more information on preparing these Google Docs as data.
+
+### Prose macro
+
+There is a "prose" macro that can loop multiple paragraphs of text that have been created using [freeform arrays in ArchieML](http://archieml.org/#freeform-arrays). To use this feature on a page, you need the following in your page:
+
+```html
+{% from '_macros/prose.njk' import prose %}
+{% set context = json_file_name %}
+
+{{ prose(context.array_name, context, data) }}
+```
+
+- The first line imports the prose macro. This can be at the top of the file.
+- The second line defines where to look for the data. If your data is "library.json", then this should be ste to "set context = library". This can also be at the top of the file.
+- The third line goes where you want the paragraphs of text to go. Change "array_name" to the name of your array in your data.
+
+See the `[+intro]` and `[+exampletext]` arrays in the [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit) for some examples of how to format the Google Doc.
 
 ## Technical notes
 
