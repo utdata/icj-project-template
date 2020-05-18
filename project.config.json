@@ -19,16 +19,5 @@
       "slug": "slug",
       "path": "books"
     }
-  ],
-  "publish_date": "Feb. 6, 2017",
-  "authors": [
-    {
-      "name": "Person One",
-      "link": "https://twitter.com/XXXXXXXXXXXXX"
-    },
-    {
-      "name": "Person Two",
-      "link": "https://twitter.com/XXXXXXXXXXXXX"
-    }
   ]
 }

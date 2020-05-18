@@ -59,17 +59,17 @@ Templates work off several basic concepts:
 
 - _extends_ is used to specify template inheritance, meaning you can "build upon" templates to avoid repeating code.
 - _block_ defines a section in a template and identifies it with a name. Pages that extend a template can override or append to these reserved blocks with new content.
-- _include_ pulls in other templates files in place. It's useful to organize or share smaller chunks of code across several files.
-- _macro_ allows you to define reusable chunks of content. It is similar to a function in a programming language.
+- _include_ imports code from other files. It's useful to organize or share smaller chunks of code.
+- _macro_ allows you to define reusable chunks of content. It is similar to a function in other programming language.
 
-With these tools, you can build a site framework once as a Layout, and then _extend_ that layout and use all its code, but swap out predefined _blocks_ specific to your new page.
+With these tools, you can build a site framework once as a "layout" or template, and then _extend_ that layout and use all its code, but swap out predefined _blocks_ specific to your new page.
 
 ### Nunjucks template examples
 
-This template organizes Nunjucks helper files into folders that start with `_` so their contents won't be complied into full pages on your site. There are examples of **layouts**, **includes** and **macros**.
+This project organizes Nunjucks helper files into folders that start with `_` so their contents won't be complied into full pages on your site. There are examples of **layouts**, **includes** and **macros**.
 
 - The layout `src/njk/_layouts/base.njk` is an example base template for a website. The idea is to build the framework of the site only once, even though you might have many pages.
-- Files in `src/njk/_includes/` are snippets of code used by other layouts through a Nunjucks tag called _include_. This allows you to organize and reuse the same code throughout your site. You can see how the  `nav.njk` and `footer.njk` includes are pulled into the `base.njk` layout.
+- Files in `src/njk/_includes/` are snippets of code used by other layouts using the _include_ tag. You can see how the  `nav.njk` and `footer.njk` includes are pulled into the `base.njk` layout.
 
 Some of the other files in those folders are discussed as advanced features later.
 
@@ -77,7 +77,7 @@ Some of the other files in those folders are discussed as advanced features late
 
 All **pages** are kept in the `src/njk/` folder. Each `.njk` file (including those in a nested folder that don't start with "_") will be processed and become an `.html` file in `docs/`, and therefore a webpage on your website.
 
-This project includes the example `src/njk/index.njk`, which is the homepage of the website. It _extends_ `src/njk/_layouts/base.njk`. Using the _block_ and _extend_ features allows you to worry about only main content of the page, as it inherits the nav and other framework from the base layout. This example includes some loops to build content from the example books and bookstores data, described in detail below.
+This project includes the example `src/njk/index.njk`, which is the homepage of the website. It _extends_ `src/njk/_layouts/base.njk`. Using the _block_ and _extend_ features allows you to worry about only main content of the page, as it inherits the nav and other framework from the base layout. This example includes some loops to build content from the example library and bookstores data, described in detail below.
 
 To create a new webpage, just add a new file in `src/njk/` with the `.njk` extension. You'll want to _extend_ the `_layouts/base.njk` template and put your content inside the `{% block content %}{% endblock %}` block.
 
@@ -87,7 +87,9 @@ This project is designed to bundle the finished website into the `docs` folder, 
 
 Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment using the `master/docs` folder.
 
-## Using data in Nunjucks templates
+## Advanced Nunjucks features
+
+### Using project data, loops
 
 Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/templating.html#tags), like looping through data.
 
@@ -117,7 +119,7 @@ There is an example using a loop to access data in these files in `index.njk`.
 
 > IMPORTANT: If you add/change/delete data in JSON files, you must re-run the `gulp dev` command to make it available to Nunjucks.
 
-### Bake pages from data and layout
+### "Bake" pages from data and a layout
 
 It is possible to generate (or "bake") multiple pages from data and a Nunjucks layout. The process requires three things:
 
@@ -137,21 +139,29 @@ It is possible to generate (or "bake") multiple pages from data and a Nunjucks l
   ]
 ```
 
-- `layout` is the name of the layout file stored in `src/njk/_layouts` that will be used to build the pages. Note you don't need the extension in name.
-- `data` is the name of the data file to build from. You don't need `.json` in the name.
-- `array` is the name of the array you are using from the JSON file.
-- `slug` is a key required from the data that will become the filename of each file created. The field used in the data needs to be in a URL-friendly format with all lowercase letters with dashes instead of spaces.
-- `path` is an optional folder to save the files into. Use an empty string to save the files at the root of `docs/`.
+- **`layout`** is the name of the layout file stored in `src/njk/_layouts` that will be used to build the pages. Note you don't need the extension in name.
+- **`data`** is the name of the data file to build from. You don't need `.json` in the name.
+- **`array`** is the name of the array you are using from the JSON file.
+- **`slug`** is a key required from the data that will become the filename of each file created. The field used in the data needs to be in a URL-friendly format with all lowercase letters with dashes instead of spaces.
+- **`path`** is an optional folder to save the files into. Use an empty string to save the files at the root of `docs/`.
 
 You can configure more than one "bake" task by adding new configurations to the `to_bake` array.
 
 The command to generate the files is `gulp bake`, but the task is also included in the default `gulp` and `gulp dev` commands.
 
+### More Nunjucks configuration
+
+A collection of functions useful for making prose reader friendly is already included with [`journalize`](https://www.npmjs.com/package/journalize).
+
+You can add [custom filters](https://mozilla.github.io/nunjucks/api.html#custom-filters) and [global variables](https://mozilla.github.io/nunjucks/api.html#addglobal) in the `manageEnv` function inside `tasks/nunjucks.js`.
+
+In addition to data in the `src/data` folder, you can also configure data variables in the `project.config.json` file.
+
 ## Using data from Google Drive
 
-To use Google Drive to store and fetch data, you have to configure a service account key. See [icj-setting-up](https://github.com/utdata/icj-setting-up) Part 2 to prepare this.
+To use Google Drive to store and "fetch" data, you have to configure a service account key. See [icj-setting-up](https://github.com/utdata/icj-setting-up) Part 2 to prepare this.
 
-`icj-project-template` projects support downloading ArchieML-formatted Google Docs and correctly-formatted Google Sheets directly from Google Drive for use within your templates. All files you want to use in your projects should be listed in `project.config.json` under the `files` key. You are not limited to one of each.
+`icj-project-template` projects support downloading ArchieML-formatted Google Docs and correctly-formatted Google Sheets directly from Google Drive for use within your project. All files you want to use in your projects should be listed in `project.config.json` under the `files` key. You are not limited to one of each.
 
 ```js
 {
@@ -173,7 +183,7 @@ Each object representing a Google Drive file needs three things:
 
 - The `fileId` key represents the ID of a Google Doc or Google Sheet. This is most easily found in the URL of a document when you have it open in your browser.
 - The `type` key is used to denote whether this is a Google Doc (`doc`) or a Google Sheet (`sheet`). This controls how it gets processed.
-- The `name` key controls what filename it will receive once it's put in the `data/` directory. So if the `name` is set as `hello`, it'll be saved to `src/data/hello.json`.
+- The `name` key controls what filename it will receive as it is downloaded into the `data/` directory. So if the `name` is set as `hello`, it'll be saved to `src/data/hello.json`.
 
 ### Gulp fetch downloads the data
 
@@ -215,7 +225,7 @@ There is a "prose" macro that can loop through multiple paragraphs of text that 
 - The second line defines where to look for the data. If your data is "library.json", then this should be ste to `set context = library`. This should also be at the top of the file so collaborators can see it easily.
 - The third line goes where you want the paragraphs of text to go. Change "array_name" to the name of your array in your data.
 
-See the `[+intro]` and `[+exampletext]` arrays in the [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit) for some examples of how to format the Google Doc. To use the intro array, the code would be `{{ prose(context.array_name, context, data) }}`.
+See the `[+intro]` and `[+exampletext]` arrays in the [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit) for some examples of how to format the Google Doc. To use the "intro" array, the code would be `{{ prose(context.intro, context, data) }}`.
 
 ## Technical notes
 
@@ -240,21 +250,3 @@ Gulp is the task runner and is configured in `gulpfile.js`. Individual tasks liv
 - `styles.js`: Processes Sass files from `/src/scss/` into minified css using [`gulp-sass`](https://www.npmjs.com/package/gulp-sass), [`gulp-sourcemaps`](https://www.npmjs.com/package/gulp-sourcemaps), [`gulp-autoprefixer`](https://www.npmjs.com/package/gulp-autoprefixer) and [`gulp-cssnano`](https://www.npmjs.com/package/gulp-cssnano).
 
 Many thanks to [Elbert Wang](https://github.com/elbertwang3) for developing the `bake` and `fetch` tasks.
-
-### More on Nunjucks
-
-You can add [custom filters](https://mozilla.github.io/nunjucks/api.html#custom-filters) and [global variables](https://mozilla.github.io/nunjucks/api.html#addglobal) in the `manageEnv` function inside `tasks/nunjucks.js`.
-
-A collection of functions useful for making prose reader friendly is already included with [`journalize`](https://www.npmjs.com/package/journalize).
-
-In addition to data in the `src/data` folder, there is another place you can store variables to be used in Nunjucks templates. The `project.config.json` file is also imported when `gulp dev` is run. The template has some example data, and the snippet below shows an example of how to loop through a list of authors using Nunjucks.
-
-```html
-<p class="author">
-  By {% for author in authors %}
-  <a href="{{ author.link }}" target="_blank">{{ author.name }}</a>{% if not
-  loop.last %}{% if loop.revindex0 == 1 %} and {% else %}, {% endif %}{% endif
-  %} {% endfor %} <br />
-  Published {{ publish_date }}
-</p>
-```
