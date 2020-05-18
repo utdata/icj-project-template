@@ -1,11 +1,34 @@
 {
+  "files": [
+    {
+      "fileId": "1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4",
+      "type": "doc",
+      "name": "library"
+    },
+    {
+      "fileId": "1gDwO-32cgpBDn_0niV0iu6TqQTaRDr4nmSqnT53magY",
+      "type": "sheet",
+      "name": "bookstores"
+    }
+  ],
+  "to_bake": [
+    {
+      "layout": "bake-book",
+      "data": "library",
+      "array": "books",
+      "slug": "slug",
+      "path": "books"
+    }
+  ],
   "publish_date": "Feb. 6, 2017",
   "authors": [
     {
-      "name": "Person One", "link": "https://twitter.com/XXXXXXXXXXXXX"
+      "name": "Person One",
+      "link": "https://twitter.com/XXXXXXXXXXXXX"
     },
     {
-      "name": "Person Two", "link": "https://twitter.com/XXXXXXXXXXXXX"
+      "name": "Person Two",
+      "link": "https://twitter.com/XXXXXXXXXXXXX"
     }
   ]
 }

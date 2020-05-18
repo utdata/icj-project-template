@@ -1,22 +1,30 @@
 {% extends '_layouts/base.njk' %}
 
-{% block page_title %}New index page title{% endblock %}
+{% block page_title %}Index page title{% endblock %}
 
-{% block page_description %}The search description for this page goes here.{% endblock %}
+{% block page_description %}The index search description for this page goes here.{% endblock %}
 
 {% block content %}
 <div class="container">
+  <h1>Main headline</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in facilisis velit, aliquam congue dui. Mauris id mi quam. Nam enim leo, bibendum vel efficitur id, elementum malesuada est. Pellentesque interdum tempus eros nec iaculis. Quisque ac est dictum, vehicula nulla quis, condimentum dui.</p>
+  <h2>Books loop</h2>
+  <p>This loops through data that came from a Google Docs example.</p>
   <div class="row">
-    <div class="col">
-      <h1>Main headline</h1>
-      <p>This is a <a href="detail-entry-example.html">link to a blog entry example</a> which shows a simple detail entry page example. It uses the "data-entry.njk" layout.</p>
-      <p>This is a <a href="detail-book-shipping-news.html">link to a book page example</a> which uses a more complex detail layout (detail-book.njk) where data is pulled into the layout and the page calls for a specific row in the data.</p>
-      <ul> 
-        {% for book in data.books %}
-          <li>{{ book.title }}, {{ book.author }}</li>
-        {% endfor %}
-     </ul>
-    </div>
+    {% for book in library.books %}
+      <div class="col">
+        <img src="img/{{ book.slug }}.jpg" alt="" class="img-fluid">
+        <p><a href="books/{{ book.slug }}.html">{{ book.title }}</a></p>
+      </div>
+    {% endfor %}
   </div>
+  <h2>Bookstores loop</h2>
+  <p>This loops through data that came from a Google Sheet example.</p>
+  <hr>
+  {% for store in bookstores.stores %}
+    <h3><a href="{{ store.url }}" target="_blank">{{ store.name }}</a></h3>
+    <p>{{ store.address}}, {{ store.city }}, {{ store.state }} {{ store.zip }}</p>
+    <hr>
+  {% endfor %}
 </div>
 {% endblock %}
