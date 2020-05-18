@@ -202,7 +202,7 @@ ArchieML Google Docs work as documented on the [ArchieML](http://archieml.org/) 
 
 ### Prose macro
 
-There is a "prose" macro that can loop multiple paragraphs of text that have been created using [freeform arrays in ArchieML](http://archieml.org/#freeform-arrays). To use this feature on a page, you need the following in your page:
+There is a "prose" macro that can loop through multiple paragraphs of text that have been created using [freeform arrays in ArchieML](http://archieml.org/#freeform-arrays). To use this feature on a page, you need the following in your page:
 
 ```html
 {% from '_macros/prose.njk' import prose %}
@@ -212,10 +212,10 @@ There is a "prose" macro that can loop multiple paragraphs of text that have bee
 ```
 
 - The first line imports the prose macro. This can be at the top of the file.
-- The second line defines where to look for the data. If your data is "library.json", then this should be ste to "set context = library". This can also be at the top of the file.
+- The second line defines where to look for the data. If your data is "library.json", then this should be ste to `set context = library`. This should also be at the top of the file so collaborators can see it easily.
 - The third line goes where you want the paragraphs of text to go. Change "array_name" to the name of your array in your data.
 
-See the `[+intro]` and `[+exampletext]` arrays in the [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit) for some examples of how to format the Google Doc.
+See the `[+intro]` and `[+exampletext]` arrays in the [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit) for some examples of how to format the Google Doc. To use the intro array, the code would be `{{ prose(context.array_name, context, data) }}`.
 
 ## Technical notes
 
