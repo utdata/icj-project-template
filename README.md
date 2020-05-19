@@ -156,7 +156,7 @@ Since pages using `_layouts/base.njk` and includes like `_includes/nav.njk` can 
 If needed, set the variable to the path that would return you to the root/index of the site. For example, since layout `bake-book.njk` will create files inside a folder at `/landmarks/filename.html` we set the `{{ relative_path }}` to come up one level to come out of that "landmarks" folder.
 
 ```html
-{% set relative_path = "../"%}
+{% set relative_path = "../" %}
 ```
 
 Any code written that includes `src` or `href` paths that could be called from a nested directory should include the variable `{{ relative_path }}` at the beginning of the url.
