@@ -1,10 +1,10 @@
 {% extends '_layouts/base.njk' %}
 
-{% block page_title %}{{ title }}
-{% endblock %}
+{% set relative_path = "../"%}
 
-{% block page_description %}{{ title }} by {{ author }}
-{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block page_description %}{{ title }} by {{ author }}{% endblock %}
 
 {% block content %}
   <article class="container">
