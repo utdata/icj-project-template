@@ -151,7 +151,7 @@ The command to generate the files is `gulp bake`, but the task is also included 
 
 ### Layouts and relative paths
 
-Since pages using `_layouts/base.njk` and includes like `_includes/nav.njk` can come from nested directories on the site, the example pages in this project use a variable `{{ relative_path }}` to correct these paths.
+Since pages using layouts like `_layouts/base.njk` and includes like `_includes/nav.njk` can come from nested directories on the site, the example pages in this project use a variable `{{ relative_path }}` to correct these paths.
 
 If needed, set the variable to the path that would return you to the root/index of the site. For example, since layout `bake-book.njk` will create files inside a folder at `/landmarks/filename.html` we set the `{{ relative_path }}` to come up one level to come out of that "landmarks" folder.
 
