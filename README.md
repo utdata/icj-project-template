@@ -121,11 +121,15 @@ There is an example using a loop to access data in these files in `index.njk`.
 
 ### "Bake" pages from data and a layout
 
-It is possible to generate (or "bake") multiple pages from data and a Nunjucks layout. The process requires three things:
+It is possible to generate (or "bake") multiple pages from data and a Nunjucks layout. Combined with Google Sheets/Docs data management, this can be a powerful tool to create and manage multi-page websites from data collections, like voter guides, restaurant databases and investigative project case studies.
 
-- A Nunjucks layout. There is an example in the project: `src/njk/_layouts/bake-book.njk`. Data is accessed in the layout through Nunjucks variables `{{ keyvalue }}` as set in the `project.config.json`  file.
-- A JSON data file saved in `src/data`.
-- Configuration in the `project.config.json` file, which has several requirements:
+The example used in the project publishes a [webpage for each book](https://utdata.github.io/icj-project-template/books/the-shipping-news.html) in a library based on "data" in a Google Doc.
+
+The process requires three things:
+
+- A Nunjucks layout: There example in the project is: `src/njk/_layouts/bake-book.njk`. The layout displays the data through Nunjucks variables `{{ keyvalue }}`.
+- Data: A JSON data file saved in the `src/data/` folder.
+- Configuration to pair the layout with the data: This is set up in the `project.config.json` file, which has several requirements:
 
 ```json
 "to_bake": [
