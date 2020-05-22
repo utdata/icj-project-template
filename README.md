@@ -236,16 +236,16 @@ There is a "prose" macro that can loop through multiple paragraphs of text that 
 
 ```html
 {% from '_macros/prose.njk' import prose %}
-{% set context = json_file_name %}
 
-{{ prose(context.array_name, context, data) }}
+{{ prose(filename.array_name) }}
 ```
 
-- The first line imports the prose macro. This can be at the top of the file.
-- The second line defines where to look for the data. If your data is "library.json", then this should be ste to `set context = library`. This should also be at the top of the file so collaborators can see it easily.
-- The third line goes where you want the paragraphs of text to go. Change "array_name" to the name of your array in your data.
+- The first line imports the prose macro. This can near the top of the file after the template extend.
+- The second line goes where you want the paragraphs of text to go. Change "filename" to your data file name and  "array_name" to the name of your array in your data.
 
-See the `[+intro]` and `[+exampletext]` arrays in the [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit) for some examples of how to format the Google Doc. To use the "intro" array, the code would be `{{ prose(context.intro, context, data) }}`.
+See the `[+example_prose]` and `[+example_image]` arrays in the [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit) for some examples of how to format the Google Doc. For "example_prose" array, the code would be `{{ prose(library.example_prose) }}`.
+
+It processes paragraphs, subheads, lists, images (though the image macro might need some work). You can add other elements in `src/njk/_macros/processors.njk`.
 
 ## Technical notes
 

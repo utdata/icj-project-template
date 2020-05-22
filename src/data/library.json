@@ -19,7 +19,7 @@
       "blurb": "The Hearing Trumpet is a story by Leonora Carrington about 92-year-old Marian Leatherby, who is given the gift of a hearing trumpet only to discover that what her family is saying is that she is to be committed to an institution."
     }
   ],
-  "intro": [
+  "example_prose": [
     {
       "type": "text",
       "value": "This is an example of a multi-paragraph intro formatted in a Google Doc to be used for <a href=\"http://archieml.org/#demo\">ArchieML</a>. What is said here is not that important, but the structure of this text in the Google Doc is."
@@ -31,9 +31,26 @@
     {
       "type": "text",
       "value": "This is the second paragraph of the text to show how to loop over the text."
+    },
+    {
+      "type": "text",
+      "value": "# this is a list embedded in the text"
+    },
+    {
+      "type": "list",
+      "value": [
+        {
+          "type": "text",
+          "value": "First list item."
+        },
+        {
+          "type": "text",
+          "value": "Second list item."
+        }
+      ]
     }
   ],
-  "exampletext": [
+  "example_image": [
     {
       "type": "text",
       "value": "This is another freeform array of text with multiple paragraphs but in this case there is an image call between two paragraphs of the text."
