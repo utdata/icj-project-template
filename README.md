@@ -96,6 +96,7 @@ Nunjucks has special [tags to apply logic](https://mozilla.github.io/nunjucks/te
 Data used in the project must be saved as a JSON file in the `src/data/` folder. There are some examples in the project, including `library.json`. While not the full file, this is an example of JSON array of key-value pairs:
 
 ```json
+{
   "books": [
     {
       "slug": "the-clown",
