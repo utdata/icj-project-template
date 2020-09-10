@@ -17,5 +17,5 @@ module.exports = () => {
         quality: 98 //lossy settings
       })
   ])))
-    .pipe(gulp.dest('./docs/img'))
+    .pipe(gulp.dest('./public/img'))
 };

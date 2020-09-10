@@ -10,7 +10,7 @@ function browserSyncReload(done) {
 module.exports = () => {
   browserSync({
     notify: false,
-    server: "docs",
+    server: "public",
     port: 3000,
   }),
     gulp.watch(

@@ -28,7 +28,7 @@ Make sure you run `degit` to get all your files _before_ you initialize your rep
 
 ## Understanding this project rig
 
-Most of the files you edit for this project are in the `src` directory. The Gulp production process will generate the publishable files into the `docs` folder, which you shouldn't touch.
+Most of the files you edit for this project are in the `src` directory. The Gulp production process will generate the publishable files into the `public` folder, which you shouldn't touch.
 
 ```pre
 ├── src
@@ -43,11 +43,11 @@ Most of the files you edit for this project are in the `src` directory. The Gulp
 |  └── scss (For Sass/CSS files)
 ```
 
-Each `.njk` file inside `src/njk` or a nested folder is compiled as an HTML file in `docs/`. Folders inside `src/njk` that start with `_` support those pages through Nunjucks templates and do NOT become HTML files.
+Each `.njk` file inside `src/njk` or a nested folder is compiled as an HTML file in `public/`. Folders inside `src/njk` that start with `_` support those pages through Nunjucks templates and do NOT become HTML files.
 
 ## Sass/scss
 
-The `src/scss/` folder holds all the SCSS files. It is configured for Bootstrap and the CSS gets compiled into the `docs/css` folder for publication.
+The `src/scss/` folder holds all the SCSS files. It is configured for Bootstrap and the CSS gets compiled into the `public/css` folder for publication.
 
 There is an example of a Sass partial with the `src/scss/_nav.scss` file, which is imported into `src/scss/main.scss`.
 
@@ -75,7 +75,7 @@ Some of the other files in those folders are discussed as advanced features late
 
 ### Pages
 
-All **pages** are kept in the `src/njk/` folder. Each `.njk` file (including those in a nested folder that don't start with "_") will be processed and become an `.html` file in `docs/`, and therefore a webpage on your website.
+All **pages** are kept in the `src/njk/` folder. Each `.njk` file (including those in a nested folder that don't start with "_") will be processed and become an `.html` file in `public/`, and therefore a webpage on your website.
 
 This project includes the example `src/njk/index.njk`, which is the homepage of the website. It _extends_ `src/njk/_templates/base.njk`. Using the _block_ and _extend_ features allows you to worry about only main content of the page, as it inherits the nav and other framework from the base template. This example includes some loops to build content from the example library and bookstores data, described in detail below.
 
@@ -83,9 +83,9 @@ To create a new webpage, just add a new file in `src/njk/` with the `.njk` exten
 
 ### Deployment
 
-This project is designed to bundle the finished website into the `_public` folder, which can then be published anywhere you have a server. Unlike some rigs, we commit our `_public` distribution folder to Github to take advantage of [Github Pages](https://help.github.com/categories/github-pages-basics/) for free hosting of our site.
+This project is designed to bundle the finished website into the `public` folder, which can then be published anywhere you have a server. Unlike some rigs, we commit our `public` distribution folder to Github to take advantage of [Github Pages](https://help.github.com/categories/github-pages-basics/) for free hosting of the site.
 
-Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment using the `master/_public/` folder.
+Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment using the `master/public/` folder.
 
 ## Advanced Nunjucks features
 
@@ -120,22 +120,22 @@ There is an example using a loop to access data in these files in `index.njk`.
 
 > IMPORTANT: If you add/change/delete data in JSON files, you must re-run the `gulp dev` command to make it available to Nunjucks.
 
-### "Bake" pages from data and a layout
+### "Bake" pages from data and a template
 
-It is possible to generate (or "bake") multiple pages from data and a Nunjucks layout. Combined with Google Sheets/Docs data management, this can be a powerful tool to create and manage multi-page websites from data collections, like voter guides, restaurant databases and investigative project case studies.
+It is possible to generate (or "bake") multiple pages from data and a Nunjucks template. Combined with Google Sheets/Docs data management, this can be a powerful tool to create and manage multi-page websites from data collections, like voter guides, restaurant databases and investigative project case studies.
 
 The example used in the project publishes a [webpage for each book](https://utdata.github.io/icj-project-template/books/the-shipping-news.html) in a library based on "data" in a Google Doc.
 
 The process requires three things:
 
-- A Nunjucks layout: There example in the project is: `src/njk/_templates/bake-book.njk`. The layout displays the data through Nunjucks variables `{{ keyvalue }}`.
+- A Nunjucks template: The example in the project is: `src/njk/_templates/bake-book.njk`. The template displays the data through Nunjucks variables `{{ keyvalue }}`.
 - Data: A JSON data file saved in the `src/data/` folder.
 - Configuration to pair the layout with the data: This is set up in the `project.config.json` file, which has several requirements:
 
 ```json
 "to_bake": [
     {
-      "layout": "bake-book",
+      "template": "bake-book",
       "data": "library",
       "array": "books",
       "slug": "slug",
@@ -144,11 +144,11 @@ The process requires three things:
   ]
 ```
 
-- **`layout`** is the name of the layout file stored in `src/njk/_templates` that will be used to build the pages. Note you don't need the extension in name.
+- **`template`** is the name of the template file stored in `src/njk/_templates` that will be used to build the pages. Note you don't need the extension in name.
 - **`data`** is the name of the data file to build from. You don't need `.json` in the name.
 - **`array`** is the name of the array you are using from the JSON file.
 - **`slug`** is a key required from the data that will become the filename of each file created. The field used in the data needs to be in a URL-friendly format with all lowercase letters with dashes instead of spaces.
-- **`path`** is an optional folder to save the files into. Use an empty string to save the files at the root of `docs/`.
+- **`path`** is an optional folder to save the files into. Use an empty string to save the files at the root of `public/`.
 
 You can configure more than one "bake" task by adding new configurations to the `to_bake` array.
 
@@ -158,7 +158,7 @@ The command to generate the files is `gulp bake`, but the task is also included 
 
 Since pages using layouts like `_templates/base.njk` and includes like `_includes/nav.njk` can come from nested directories on the site, the example pages in this project use a variable `{{ relative_path }}` to correct these paths.
 
-If needed, set the variable to the path that would return you to the root/index of the site. For example, since layout `bake-book.njk` will create files inside a folder at `/landmarks/filename.html` we set the `{{ relative_path }}` to come up one level to come out of that "landmarks" folder.
+If needed, set the variable to the path that would return you to the root/index of the site. For example, since layout `bake-book.njk` will create files inside a folder at `/books/filename.html` we set the `{{ relative_path }}` to come up one level to come out of that "books" folder.
 
 ```html
 {% set relative_path = "../" %}
@@ -244,7 +244,9 @@ There is a "prose" macro that can loop through multiple paragraphs of text that 
 - The first line imports the prose macro. This can near the top of the file after the template extend.
 - The second line goes where you want the paragraphs of text to go. Change "filename" to your data file name and  "array_name" to the name of your array in your data.
 
-See the `[+example_prose]` and `[+example_image]` arrays in the [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit) for some examples of how to format the Google Doc. For "example_prose" array, the code would be `{{ prose(library.example_prose) }}`.
+See the `[example_multigraph]`, `[+example_prose]` and `[+example_image]` arrays in the [Books data](https://docs.google.com/document/d/1RgMhjtkXlbbf9uzSzy_xPRKwxcVZIZqVytgM_JoU4E4/edit) for some examples of how to format the Google Doc.
+
+To use the "example_prose" array, the code would be `{{ prose(library.example_prose) }}`.
 
 It processes paragraphs, subheads, lists, images (though the image macro might need some work). You can add other elements in `src/njk/_macros/processors.njk`.
 
@@ -259,9 +261,9 @@ Gulp is the task runner and is configured in `gulpfile.js`. Individual tasks liv
 ### Tasks
 
 - `bake.js`: Generates detail pages from a layout and data as noted above.
-- `clean.js`: Deletes the contents of the `docs` directory using [`del`](https://www.npmjs.com/package/del).
+- `clean.js`: Deletes the contents of the `public` directory using [`del`](https://www.npmjs.com/package/del).
 - `clear.js`: Clears out the gulp cache. Useful to reprocess images of the same name stuck in cache. Run `gulp clear` then re-run `gulp`.
-- `copy.js`: Used to copy production-necessary JavaScript files from `node_modules` into `docs/js`.
+- `copy.js`: Used to copy production-necessary JavaScript files from `node_modules` into `public/js`.
 - `fetch.js`: Downloads Google Drive files as data as configured in `project.config.json`.
 - `images.js`: Optimize images using [`gulp-imagemin`](https://www.npmjs.com/package/gulp-imagemin) and [`imagemin-mozjpeg`](https://www.npmjs.com/package/imagemin-mozjpeg) packages.
 - `lint.js`: Checks syntax of your (optionally ES6) javascript in `/src/js/` using [`gulp-eslint`](https://www.npmjs.com/package/gulp-eslint) -- it's a good idea to have an eslint package installed in your text editor of choice, as well.

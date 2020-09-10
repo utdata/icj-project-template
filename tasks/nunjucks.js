@@ -67,7 +67,7 @@ module.exports = (resolve, reject) => {
       })
     )
     .on("error", log.error)
-    .pipe(gulp.dest("docs"))
+    .pipe(gulp.dest("public"))
     .pipe(browserSync.stream());
   resolve();
 };
