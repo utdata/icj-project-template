@@ -6,5 +6,5 @@ module.exports = () => {
     'node_modules/popper.js/dist/popper.js',
     'node_modules/bootstrap/dist/js/bootstrap.js'
   ])
-    .pipe(gulp.dest('./docs/js'))
+    .pipe(gulp.dest('./public/js'))
 };
