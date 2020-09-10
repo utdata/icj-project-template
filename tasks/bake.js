@@ -65,8 +65,8 @@ module.exports = (resolve) => {
   }
 
   config.to_bake.forEach((bake) => {
-    if (!bake.layout) {
-      throw new Error(`bake.layout is undefined. Add a nunjucks layout.`);
+    if (!bake.template) {
+      throw new Error(`bake.template is undefined. Add a nunjucks template.`);
     }
     if (!bake.slug) {
       throw new Error(
@@ -103,7 +103,7 @@ module.exports = (resolve) => {
       }
 
       gulp
-        .src(`src/njk/_layouts/${bake.layout}.njk`)
+        .src(`src/njk/_templates/${bake.template}.njk`)
         .pipe(gulpData(d))
         .pipe(
           nunjucksRender({

@@ -1,12 +1,12 @@
-# ICJ Project Template
+# ICJ Project Rig
 
-This project template was developed for the [Intro to Coding for Journalists](https://github.com/utdata/icj-class) class taught by Christian McDonald, Assistant Professor of Practice at the School of Journalism, Moody College of Communication, University of Texas at Austin.
+This project rig was developed for the [Intro to Coding for Journalists](https://github.com/utdata/icj-class) class taught by Christian McDonald, Assistant Professor of Practice at the School of Journalism, Moody College of Communication, University of Texas at Austin.
 
-The development concepts used in this template are similar in rigs used by news graphics teams in newsrooms like The Texas Tribune , Los Angeles Times and NPR.
+The development concepts used are similar to rigs used by news graphics teams in newsrooms like The Texas Tribune, Los Angeles Times and NPR.
 
 ## Features
 
-This Node-based template uses a Gulp workflow configured for Github Pages publishing. Features include:
+This Node-based rig uses a Gulp workflow configured for Github Pages publishing. Features include:
 
 - [Bootstrap 4.4](https://getbootstrap.com/) and [Sass](https://sass-lang.com/).
 - [Nunjucks Templating](https://mozilla.github.io/nunjucks/templating.html) with [`journalize`](https://www.npmjs.com/package/journalize) filters.
@@ -20,13 +20,13 @@ To start a new project:
 
 - Create a project folder for all your code.
 - Open Visual Studio Code into that folder and open the integrated Terminal.
-- Run `degit utdata/icj-project-template`.
+- Run `degit utdata/icj-project-rig`.
 - Initialize your repo, add and commit the files.
 - Create your Github repo and connect them.
 
 Make sure you run `degit` to get all your files _before_ you initialize your repo.
 
-## Understanding this project
+## Understanding this project rig
 
 Most of the files you edit for this project are in the `src` directory. The Gulp production process will generate the publishable files into the `docs` folder, which you shouldn't touch.
 
@@ -37,8 +37,8 @@ Most of the files you edit for this project are in the `src` directory. The Gulp
 |  ├── js (For custom JavaScript)
 |  ├── njk
 |  |  ├── _includes (For code snippets)
-|  |  ├── _layouts (For templates)
 |  |  ├── _macros (For reusable code)
+|  |  ├── _templates (For templates)
 |  |  └── index.njk (Becomes an HTML page)
 |  └── scss (For Sass/CSS files)
 ```
@@ -62,14 +62,14 @@ Templates work off several basic concepts:
 - _include_ imports code from other files. It's useful to organize or share smaller chunks of code.
 - _macro_ allows you to define reusable chunks of content. It is similar to a function in other programming language.
 
-With these tools, you can build a site framework once as a "layout" or template, and then _extend_ that layout and use all its code, but swap out predefined _blocks_ specific to your new page.
+With these tools, you can build a site framework once as a template, and then _extend_ that template and use all its code, but swap out predefined _blocks_ specific to your new page.
 
 ### Nunjucks template examples
 
-This project organizes Nunjucks helper files into folders that start with `_` so their contents won't be complied into full pages on your site. There are examples of **layouts**, **includes** and **macros**.
+This project organizes Nunjucks helper files into folders that start with `_` so their contents won't be complied into full pages on your site. There are examples of **templates**, **includes** and **macros**.
 
-- The layout `src/njk/_layouts/base.njk` is an example base template for a website. The idea is to build the framework of the site only once, even though you might have many pages.
-- Files in `src/njk/_includes/` are snippets of code used by other layouts using the _include_ tag. You can see how the  `nav.njk` and `footer.njk` includes are pulled into the `base.njk` layout.
+- The file `src/njk/_templates/base.njk` is an example base template for a website. The idea is to build the framework of the site only once, even though you might have many pages.
+- Files in `src/njk/_includes/` are snippets of code used by other templates using the _include_ tag. You can see how the  `nav.njk` and `footer.njk` includes are pulled into the `base.njk` template.
 
 Some of the other files in those folders are discussed as advanced features later.
 
@@ -77,15 +77,15 @@ Some of the other files in those folders are discussed as advanced features late
 
 All **pages** are kept in the `src/njk/` folder. Each `.njk` file (including those in a nested folder that don't start with "_") will be processed and become an `.html` file in `docs/`, and therefore a webpage on your website.
 
-This project includes the example `src/njk/index.njk`, which is the homepage of the website. It _extends_ `src/njk/_layouts/base.njk`. Using the _block_ and _extend_ features allows you to worry about only main content of the page, as it inherits the nav and other framework from the base layout. This example includes some loops to build content from the example library and bookstores data, described in detail below.
+This project includes the example `src/njk/index.njk`, which is the homepage of the website. It _extends_ `src/njk/_templates/base.njk`. Using the _block_ and _extend_ features allows you to worry about only main content of the page, as it inherits the nav and other framework from the base template. This example includes some loops to build content from the example library and bookstores data, described in detail below.
 
-To create a new webpage, just add a new file in `src/njk/` with the `.njk` extension. You'll want to _extend_ the `_layouts/base.njk` template and put your content inside the `{% block content %}{% endblock %}` block.
+To create a new webpage, just add a new file in `src/njk/` with the `.njk` extension. You'll want to _extend_ the `_templates/base.njk` template and put your content inside the `{% block content %}{% endblock %}` block.
 
 ### Deployment
 
-This project is designed to bundle the finished website into the `docs` folder, which can then be published anywhere you have a server. We use "docs" instead of the more common "public" or "dist" to take advantage of [Github Pages](https://help.github.com/categories/github-pages-basics/) for free hosting of our site. As such, the `docs/` folder is also committed to Github.
+This project is designed to bundle the finished website into the `_public` folder, which can then be published anywhere you have a server. Unlike some rigs, we commit our `_public` distribution folder to Github to take advantage of [Github Pages](https://help.github.com/categories/github-pages-basics/) for free hosting of our site.
 
-Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment using the `master/docs` folder.
+Review [Github Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch) for specific directions on deployment using the `master/_public/` folder.
 
 ## Advanced Nunjucks features
 
@@ -128,7 +128,7 @@ The example used in the project publishes a [webpage for each book](https://utda
 
 The process requires three things:
 
-- A Nunjucks layout: There example in the project is: `src/njk/_layouts/bake-book.njk`. The layout displays the data through Nunjucks variables `{{ keyvalue }}`.
+- A Nunjucks layout: There example in the project is: `src/njk/_templates/bake-book.njk`. The layout displays the data through Nunjucks variables `{{ keyvalue }}`.
 - Data: A JSON data file saved in the `src/data/` folder.
 - Configuration to pair the layout with the data: This is set up in the `project.config.json` file, which has several requirements:
 
@@ -144,7 +144,7 @@ The process requires three things:
   ]
 ```
 
-- **`layout`** is the name of the layout file stored in `src/njk/_layouts` that will be used to build the pages. Note you don't need the extension in name.
+- **`layout`** is the name of the layout file stored in `src/njk/_templates` that will be used to build the pages. Note you don't need the extension in name.
 - **`data`** is the name of the data file to build from. You don't need `.json` in the name.
 - **`array`** is the name of the array you are using from the JSON file.
 - **`slug`** is a key required from the data that will become the filename of each file created. The field used in the data needs to be in a URL-friendly format with all lowercase letters with dashes instead of spaces.
@@ -156,7 +156,7 @@ The command to generate the files is `gulp bake`, but the task is also included 
 
 ### Layouts and relative paths
 
-Since pages using layouts like `_layouts/base.njk` and includes like `_includes/nav.njk` can come from nested directories on the site, the example pages in this project use a variable `{{ relative_path }}` to correct these paths.
+Since pages using layouts like `_templates/base.njk` and includes like `_includes/nav.njk` can come from nested directories on the site, the example pages in this project use a variable `{{ relative_path }}` to correct these paths.
 
 If needed, set the variable to the path that would return you to the root/index of the site. For example, since layout `bake-book.njk` will create files inside a folder at `/landmarks/filename.html` we set the `{{ relative_path }}` to come up one level to come out of that "landmarks" folder.
 
