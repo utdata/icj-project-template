@@ -28,13 +28,13 @@ module.exports = () => {
   return gulp.src([
     'src/scss/*.scss'
   ])
-    .pipe(newer('./public/css'))
+    .pipe(newer('./docs/css'))
     .pipe(sourcemaps.init())
     .pipe(sass())
     .on('error', log.error)
     .pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(postcss(plugins))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./public/css'))
+    .pipe(gulp.dest('./docs/css'))
     .pipe(browserSync.stream());
   };

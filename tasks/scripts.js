@@ -9,11 +9,11 @@ module.exports = () => {
   return gulp.src([
     './src/js/main.js'
   ])
-    .pipe(newer('./public/js'))
+    .pipe(newer('./docs/js'))
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(concat('scripts.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./public/js'))
+    .pipe(gulp.dest('./docs/js'))
 };

@@ -96,9 +96,9 @@ module.exports = (resolve) => {
         );
       }
 
-      if (!isValidGlob(`public/${bake.path}/${d[bake.slug]}.html`)) {
+      if (!isValidGlob(`docs/${bake.path}/${d[bake.slug]}.html`)) {
         throw new Error(
-          `public/${bake.path}/${d[bake.slug]}.html is not a valid glob.`
+          `docs/${bake.path}/${d[bake.slug]}.html is not a valid glob.`
         );
       }
 
@@ -117,7 +117,7 @@ module.exports = (resolve) => {
             extname: ".html",
           })
         )
-        .pipe(gulp.dest(`public/${bake.path}`))
+        .pipe(gulp.dest(`docs/${bake.path}`))
         .pipe(browserSync.stream());
     });
   });
