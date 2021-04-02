@@ -13,10 +13,10 @@ module.exports = () => {
     server: "docs",
     port: 3000,
   }),
-    gulp.watch(
-      ["src/njk/**/*.html", "src/njk/**/*.njk", "src/njk/**/*.json"],
-      gulp.series("nunjucks", "bake", browserSyncReload)
-    );
+  gulp.watch(
+    ["src/njk/**/*.html", "src/njk/**/*.njk", "src/njk/**/*.json"],
+    gulp.series("nunjucks", "bake", browserSyncReload)
+  );
   gulp.watch(
     ["node_modules/bootstrap/scss/bootstrap.scss", "src/scss/**/*.scss"],
     gulp.series("styles", browserSyncReload)
@@ -25,5 +25,8 @@ module.exports = () => {
     ["src/js/**/*.js"],
     gulp.series("lint", "scripts", browserSyncReload)
   );
-  gulp.watch(["src/assets/img/**/*"], gulp.series("images", browserSyncReload));
+  gulp.watch(
+    ["src/img/**/*"],
+    gulp.series("images", browserSyncReload)
+  );
 };
